@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebBoVoyage.Models
 {
-    [Table("Destinations")]
+    [Table("Destination")]
     public class Destination
     {
         [Column("Id")]

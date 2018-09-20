@@ -1,17 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Migrations;
-using System.Linq;
-using System.Web;
-using WebBoVoyage.Data;
-
-namespace TodoList.Migrations
+namespace WebBoVoyage.Migrations
 {
-    public class Configuration : DbMigrationsConfiguration<BoVoyageDbContext>
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Migrations;
+    using System.Linq;
+
+    internal sealed class Configuration : DbMigrationsConfiguration<WebBoVoyage.Data.BoVoyageDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+        }
+
+        protected override void Seed(WebBoVoyage.Data.BoVoyageDbContext context)
+        {
+            //  This method will be called after migrating to the latest version.
+
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  to avoid creating duplicate seed data.
         }
     }
 }

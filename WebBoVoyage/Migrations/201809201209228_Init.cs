@@ -1,4 +1,4 @@
-namespace TodoList.Migrations
+namespace WebBoVoyage.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
@@ -8,7 +8,7 @@ namespace TodoList.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.AgenceVoyages",
+                "dbo.AgenceVoyage",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -32,7 +32,7 @@ namespace TodoList.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Destinations",
+                "dbo.Destination",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -71,8 +71,8 @@ namespace TodoList.Migrations
                         IdAgenceVoyage = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AgenceVoyages", t => t.IdAgenceVoyage, cascadeDelete: true)
-                .ForeignKey("dbo.Destinations", t => t.IdDestination, cascadeDelete: true)
+                .ForeignKey("dbo.AgenceVoyage", t => t.IdAgenceVoyage, cascadeDelete: true)
+                .ForeignKey("dbo.Destination", t => t.IdDestination, cascadeDelete: true)
                 .Index(t => t.IdDestination)
                 .Index(t => t.IdAgenceVoyage);
             
@@ -80,15 +80,15 @@ namespace TodoList.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.Voyages", "IdDestination", "dbo.Destinations");
-            DropForeignKey("dbo.Voyages", "IdAgenceVoyage", "dbo.AgenceVoyages");
+            DropForeignKey("dbo.Voyages", "IdDestination", "dbo.Destination");
+            DropForeignKey("dbo.Voyages", "IdAgenceVoyage", "dbo.AgenceVoyage");
             DropIndex("dbo.Voyages", new[] { "IdAgenceVoyage" });
             DropIndex("dbo.Voyages", new[] { "IdDestination" });
             DropTable("dbo.Voyages");
             DropTable("dbo.Participants");
-            DropTable("dbo.Destinations");
+            DropTable("dbo.Destination");
             DropTable("dbo.Clients");
-            DropTable("dbo.AgenceVoyages");
+            DropTable("dbo.AgenceVoyage");
         }
     }
 }
