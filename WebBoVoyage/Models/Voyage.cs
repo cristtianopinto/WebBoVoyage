@@ -34,7 +34,7 @@ namespace WebBoVoyage.Models
         public virtual Destination Destination { get; set; }
 
         [ForeignKey("IdAgenceVoyage")]
-        public AgenceVoyage AgenceVoyage { get; set; }
+        public virtual AgenceVoyage AgenceVoyage { get; set; }
 
         public void Reserver(int places)
         {
