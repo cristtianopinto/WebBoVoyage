@@ -1,0 +1,126 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+          crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="/Application/css/application.css" />-->
+
+    <style>
+        .Destination {
+            border: 1px solid lightgray;
+            padding-left: 20px;
+            padding-top: 20px;
+        }
+
+            .Destination input[type=checkbox] {
+                margin-right: 8px;
+            }
+
+            .Destination button {
+                float: right;
+                display: none;
+            }
+
+            .Destination:hover button {
+                float: right;
+                display: block;
+            }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">
+            <i class="fas fa-concierge-bell"></i> BoVoyage
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item ">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/application/html/clients.html">Clients</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/application/html/agence.html">Agences</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/application/html/destination.html">Destination</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/application/html/voyages.html">Voyages</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Nauveau - Destination</h1>
+        <div class="row" id="listeDestinations"> </div>
+
+        <form novalidate>
+            <!--novalidate bootstrap-->
+            <div class="form-group">
+                <label for="Cotinent">Cotinent</label>
+                <input type="text" class="form-control" id="Cotinent" required />
+                <!--
+                <div class='invalid-feedback'>
+                    Champ requis
+                </div>-->
+            </div>
+            <div class="form-group">
+                <label for="Pays">Pays*</label>
+                <input type="text" class="form-control" id="Pays" required />
+                <!--
+                <div class='invalid-feedback'>
+                    Champ requis
+                </div>-->
+            </div>
+            <div class="form-group">
+                <label for="Region">Region</label>
+                <input type="text" class="form-control" id="Region" required />
+            </div>
+            <div class="form-group">
+                <label for="Description">Description</label>
+                <textarea class="form-control" id="Description" rows="3"></textarea>
+            </div>
+            
+            <button class="btn btn-primary" style="margin-top:50px;" onclick="return EnregistrerDestination()">Enregistrer</button> <!--on besoin d'un return-->
+        </form>
+
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script>
+
+        function EnregistrerDestination() {
+            /*if (!Valider()) {
+                return false;
+            }*/
+            var Destination = {
+                Cotinent: $('#Cotinent').val(),
+                Pays: $('#Pays').val(),
+                Region: $('#Region').val(),
+                Description: $('#Description').val()                
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/api/Destinations',
+                data: Destination,
+                success: function () {
+                    window.location.href = '/application/Html/destination.html';
+                },
+                error: Erreur
+            });
+            return false;
+        }
+        function Erreur() {
+            alert("Erreur de Page!");
+        }
+    </script>
+</body>
+</html>

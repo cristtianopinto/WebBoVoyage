@@ -99,6 +99,7 @@
     <Content Include="Application\html\clients.html" />
     <Content Include="Application\html\destination.html" />
     <Content Include="Application\html\nouveauclient.html" />
+    <Content Include="Application\html\nouveaudestination.html" />
     <Content Include="Application\html\principal.html" />
     <Content Include="Application\html\voyage.html" />
     <Content Include="Global.asax" />
@@ -119,9 +120,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201809201418530_Init.cs" />
-    <Compile Include="Migrations\201809201418530_Init.Designer.cs">
-      <DependentUpon>201809201418530_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201809201430085_Init.cs" />
+    <Compile Include="Migrations\201809201430085_Init.Designer.cs">
+      <DependentUpon>201809201430085_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AgenceVoyage.cs" />
@@ -149,8 +150,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201809201418530_Init.resx">
-      <DependentUpon>201809201418530_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809201430085_Init.resx">
+      <DependentUpon>201809201430085_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
