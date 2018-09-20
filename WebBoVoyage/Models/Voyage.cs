@@ -7,8 +7,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebBoVoyage.Models
 {
-    [Table("Voyages")]
-    public class Voyage   
+    public class Voyage
+   
     {
         [Column("Id")]       
         public int Id { get; set; }

@@ -10,6 +10,7 @@ namespace WebBoVoyage.Models
     
     public abstract class Personne
     {
+       
         public int Id { get; set; }        
         public string Civilite { get; set; }        
         public string Nom { get; set; }        
