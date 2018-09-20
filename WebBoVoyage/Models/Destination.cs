@@ -12,13 +12,21 @@ namespace WebBoVoyage.Models
     {
         [Column("Id")]
         public int Id { get; set; }
+
+        [StringLength(20)]
         [Column("Continent")]
         public string Continent { get; set; }
+        
+        [StringLength(20)]
         [Column("Pays")]
         public string Pays { get; set; }
+
         [Column("Region")]
+        [StringLength(20)]
         public string Region { get; set; }
+
         [Column("Description")]
+        [StringLength(250)]
         public string Description { get; set; }
     }
 }
