@@ -114,6 +114,7 @@
       <DependentUpon>201809200727165_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AgenceVoyage.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Participant.cs" />
     <Compile Include="Models\Personne.cs" />
