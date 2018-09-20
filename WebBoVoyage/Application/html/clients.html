@@ -54,25 +54,32 @@
             </ul>
         </div>
     </nav>
-    <h1>bienvenue - Clients</h1>
-    <div class="row" id="listeClients"> </div>
-
+    
+    <div class="container">
+        <h1>bienvenue - Clients</h1>
+        <div class="row" id="listeClients"> </div>
+        <div class="row">
+            <div style="margin-top: 100px;" class="col-sm-6">
+                <a href="/application/Html/nouveauclient.html" class="btn btn-primary btn-sm">Nouveau Client</a>
+            </div>
+        </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script>
         function getClients() {
             $.ajax({
                 url: '/api/Clients',
                 success: function (Clients) {
-                    var divListeClients = $('#listeClients'); 
+                    var divListeClients = $('#listeClients');
                     divListeClients.addClass('row');
                     //var i = 1;
                     for (client of Clients) {
                         //var id = 'id' + i;
 
                         var divClient = $('<div class="Client"></div>');
-                        divClient.addClass('col-sm-8');                        
+                        divClient.addClass('col-sm-8');
                         divClient.attr("data-id", client.Id);
-                        divClient.empty; 
+                        divClient.empty;
 
                         var buttonDelete = $('<button class="btn btn-danger btn-sm" style = "float:right;"><i class="fas fa-trash"></i></button>');
                         buttonDelete.on('click', function () {
@@ -82,7 +89,7 @@
                         });
 
                         divClient.append(buttonDelete);
-                                                
+
                         divClient.append($('<span ></span>').text(client.Civilite));
                         divClient.append($(' <span> </span>'));
                         divClient.append($('<span ></span>').text(client.Nom));
@@ -94,7 +101,7 @@
                         divClient.append($('<span ></span>').text(client.Telephone));
                         divClient.append($(' <span> -  </span>'));
                         divClient.append($('<span ></span>').text(client.DateNaissance));
-                        
+
                         //i++;
                         divListeClients.append(divClient);
                     }
@@ -108,7 +115,7 @@
             alert("Erreur de Page!");
         }
 
-        function SuprimmerClient(id, div) {            
+        function SuprimmerClient(id, div) {
             $.ajax({
                 type: 'DELETE',
                 url: '/api/Clients/' + id,
@@ -118,7 +125,7 @@
                 },
                 error: Erreur
             });
-        }  
+        }
 
         getClients();
     </script>
