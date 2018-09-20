@@ -113,6 +113,10 @@
     <Compile Include="Migrations\201809200727165_Init.Designer.cs">
       <DependentUpon>201809200727165_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809200822433_AjouterAgenceVoyage.cs" />
+    <Compile Include="Migrations\201809200822433_AjouterAgenceVoyage.Designer.cs">
+      <DependentUpon>201809200822433_AjouterAgenceVoyage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AgenceVoyage.cs" />
     <Compile Include="Models\Client.cs" />
@@ -137,6 +141,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201809200727165_Init.resx">
       <DependentUpon>201809200727165_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809200822433_AjouterAgenceVoyage.resx">
+      <DependentUpon>201809200822433_AjouterAgenceVoyage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
