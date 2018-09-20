@@ -11,25 +11,25 @@
     <!--<link rel="stylesheet" href="/Application/css/application.css" />-->
 
     <style>
-        .Client {
+        .Destination {
             border: 1px solid lightgray;
             padding-left: 20px;
             padding-top: 20px;
         }
 
-        .Client input[type=checkbox] {
-            margin-right: 8px;
-        }
+            .Destination input[type=checkbox] {
+                margin-right: 8px;
+            }
 
-        .Client button {
-            float: right;
-            display: none;
-        }
+            .Destination button {
+                float: right;
+                display: none;
+            }
 
-        .Client:hover button {
-            float: right;
-            display: block;
-        }
+            .Destination:hover button {
+                float: right;
+                display: block;
+            }
     </style>
 </head>
 <body>
@@ -42,13 +42,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/application/html/clients.html">Clients</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/application/html/agence.html">Agences</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="/application/html/destination.html">Destinacion</a>
                 </li>
                 <li class="nav-item">
@@ -56,57 +56,54 @@
                 </li>
             </ul>
         </div>
-    </nav>    
+    </nav>
     <div class="container">
-        <h1>bienvenue - Clients</h1>
-        <div class="row" id="listeClients"> </div>
+        <h1>bienvenue - Destinations</h1>
+        <div class="row" id="listeDestinations"> </div>
         <div class="row">
             <div style="margin-top: 100px;" class="col-sm-6">
-                <a href="/application/Html/nouveauclient.html" class="btn btn-primary btn-sm">Nouveau Client</a>
+                <a href="/application/Html/nouveauDestination.html" class="btn btn-primary btn-sm">Nouveau Destination</a>
             </div>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script>
-        function getClients() {
+        function getDestinations() {
             $.ajax({
-                url: '/api/Clients',
-                success: function (Clients) {
-                    var divListeClients = $('#listeClients'); 
-                    divListeClients.addClass('row');
+                url: '/api/Destinations',
+                success: function (Destinations) {
+                    var divListeDestinations = $('#listeDestinations');
+                    divListeDestinations.addClass('row');
                     //var i = 1;
-                    for (client of Clients) {
+                    for (Destination of Destinations) {
                         //var id = 'id' + i;//
 
-                        var divClient = $('<div class="Client"></div>');
-                        divClient.addClass('col-sm-8');                        
-                        divClient.attr("data-id", client.Id);
-                        divClient.empty; 
+                        var divDestination = $('<div class="Destination"></div>');
+                        divDestination.addClass('col-sm-8');
+                        divDestination.attr("data-id", Destination.Id);
+                        divDestination.empty;
 
                         var buttonDelete = $('<button class="btn btn-danger btn-sm" style = "float:right;"><i class="fas fa-trash"></i></button>');
                         buttonDelete.on('click', function () {
-                            var div = $(this).closest(".Client");
-                            var idClient = div.attr("data-id"); // suppression
-                            SuprimmerClient(idClient, div); //TODO
+                            var div = $(this).closest(".Destination");
+                            var idDestination = div.attr("data-id"); // suppression
+                            SuprimmerDestination(idDestination, div); //TODO
                         });
 
-                        divClient.append(buttonDelete);
-                                                
-                        divClient.append($('<span ></span>').text(client.Civilite));
-                        divClient.append($(' <span> </span>'));
-                        divClient.append($('<span ></span>').text(client.Nom));
-                        divClient.append($('<br/>'));
-                        divClient.append($('<span ></span>').text(client.Prenom));
-                        divClient.append($(' <span> - </span>'));
-                        divClient.append($('<span ></span>').text(client.Adresse));
-                        divClient.append($(' <span> - </span>'));
-                        divClient.append($('<span ></span>').text(client.Telephone));
-                        divClient.append($(' <span> -  </span>'));
-                        divClient.append($('<span ></span>').text(client.DateNaissance));
+                        divDestination.append(buttonDelete);
+
+                        divDestination.append($('<span ></span>').text(Destination.Continent));
+                        divDestination.append($(' <span> </span>'));
+                        divDestination.append($('<span ></span>').text(Destination.Pays));
+                        divDestination.append($('<br/>'));
+                        divDestination.append($('<span ></span>').text(Destination.Region));
+                        divDestination.append($(' <span> - </span>'));
+                        divDestination.append($('<span ></span>').text(Destination.Description));
                         
+
                         //i++;
-                        divListeClients.append(divClient);
+                        divListeDestinations.append(divDestination);
                     }
 
                     //document.getElementById("numTache").innerHTML = i - 1 + " tache(s)";
@@ -118,19 +115,19 @@
             alert("Erreur de Page!");
         }
 
-        function SuprimmerClient(id, div) {            
+        function SuprimmerDestination(id, div) {
             $.ajax({
                 type: 'DELETE',
-                url: '/api/Clients/' + id,
+                url: '/api/Destinations/' + id,
                 success: function () {
                     $(div).remove();
                     location.reload();
                 },
                 error: Erreur
             });
-        }  
+        }
 
-        getClients();
+        getDestinations();
     </script>
 </body>
 </html>

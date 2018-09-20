@@ -97,6 +97,7 @@
   <ItemGroup>
     <Content Include="Application\html\agence.html" />
     <Content Include="Application\html\clients.html" />
+    <Content Include="Application\html\destination.html" />
     <Content Include="Application\html\nouveauclient.html" />
     <Content Include="Application\html\principal.html" />
     <Content Include="Global.asax" />
