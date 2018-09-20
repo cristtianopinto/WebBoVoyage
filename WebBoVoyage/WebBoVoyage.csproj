@@ -100,6 +100,7 @@
     <Content Include="Application\html\destination.html" />
     <Content Include="Application\html\nouveauclient.html" />
     <Content Include="Application\html\principal.html" />
+    <Content Include="Application\html\voyage.html" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="Web.config" />
@@ -111,6 +112,8 @@
     <Compile Include="Controllers\AssurancesController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\DestinationsController.cs" />
+    <Compile Include="Controllers\DossierReservationsController.cs" />
+    <Compile Include="Controllers\ParticipantsController.cs" />
     <Compile Include="Controllers\VoyagesController.cs" />
     <Compile Include="Data\BoVoyageDbContext.cs" />
     <Compile Include="Global.asax.cs">

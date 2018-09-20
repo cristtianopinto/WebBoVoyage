@@ -11,22 +11,22 @@
     <!--<link rel="stylesheet" href="/Application/css/application.css" />-->
 
     <style>
-        .Destination {
+        .Voyage {
             border: 1px solid lightgray;
             padding-left: 20px;
             padding-top: 20px;
         }
 
-            .Destination input[type=checkbox] {
+            .Voyage input[type=checkbox] {
                 margin-right: 8px;
             }
 
-            .Destination button {
+            .Voyage button {
                 float: right;
                 display: none;
             }
 
-            .Destination:hover button {
+            .Voyage:hover button {
                 float: right;
                 display: block;
             }
@@ -42,68 +42,71 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item ">
                     <a class="nav-link" href="/application/html/clients.html">Clients</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/application/html/agence.html">Agences</a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/application/html/destination.html">Destinacion</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="/application/html/voyage.html">Voyages</a>
                 </li>
             </ul>
         </div>
     </nav>
     <div class="container">
-        <h1>bienvenue - Destinations</h1>
-        <div class="row" id="listeDestinations"> </div>
+        <h1>bienvenue - Voyage</h1>
+        <div class="row" id="listeVoyages"> </div>
         <div class="row">
             <div style="margin-top: 100px;" class="col-sm-6">
-                <a href="/application/Html/nouveauDestination.html" class="btn btn-primary btn-sm">Nouveau Destination</a>
+                <a href="/application/Html/nouveauclient.html" class="btn btn-primary btn-sm">Nouveau Voyage</a>
             </div>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script>
-        function getDestinations() {
+        function getVoyages() {
             $.ajax({
-                url: '/api/Destinations',
-                success: function (Destinations) {
-                    var divListeDestinations = $('#listeDestinations');
-                    divListeDestinations.addClass('row');
+                url: '/api/Voyages',
+                success: function (Voyages) {
+                    var divListeVoyages = $('#listeVoyages');
+                    divListeVoyages.addClass('row');
                     //var i = 1;
-                    for (Destination of Destinations) {
+                    for (voyage of Voyages) {
                         //var id = 'id' + i;//
 
-                        var divDestination = $('<div class="Destination"></div>');
-                        divDestination.addClass('col-sm-8');
-                        divDestination.attr("data-id", Destination.Id);
-                        divDestination.empty;
+                        var divVoyage = $('<div class="Voyage"></div>');
+                        divVoyage.addClass('col-sm-8');
+                        divVoyage.attr("data-id", voyage.Id);
+                        divVoyage.empty;
 
                         var buttonDelete = $('<button class="btn btn-danger btn-sm" style = "float:right;"><i class="fas fa-trash"></i></button>');
                         buttonDelete.on('click', function () {
-                            var div = $(this).closest(".Destination");
-                            var idDestination = div.attr("data-id"); // suppression
-                            SuprimmerDestination(idDestination, div); //TODO
+                            var div = $(this).closest(".Voyage");
+                            var idVoyage = div.attr("data-id"); // suppression
+                            SuprimmerVoyage(idVoyage, div); //TODO
                         });
 
-                        divDestination.append(buttonDelete);
+                        divVoyage.append(buttonDelete);
 
-                        divDestination.append($('<span ></span>').text(Destination.Continent));
-                        divDestination.append($(' <span> </span>'));
-                        divDestination.append($('<span ></span>').text(Destination.Pays));
-                        divDestination.append($('<br/>'));
-                        divDestination.append($('<span ></span>').text(Destination.Region));
-                        divDestination.append($(' <span> - </span>'));
-                        divDestination.append($('<span ></span>').text(Destination.Description));
-                        
+                        divVoyage.append($('<span ></span>').text(voyage.DateAller));
+                        /*
+                        divVoyage.append($(' <span> </span>'));
+                        divVoyage.append($('<span ></span>').text(voyage.DateRetour));
+                        divVoyage.append($('<br/>'));
+                        divVoyage.append($('<span ></span>').text(voyage.IDDestination));
+                        divVoyage.append($(' <span> - </span>'));
+                        divVoyage.append($('<span ></span>').text(voyage.PrixParPersonne));
+                        divVoyage.append($(' <span> - </span>'));
+                        divVoyage.append($('<span ></span>').text(voyage.PlaceDisponible));
+                        */
 
                         //i++;
-                        divListeDestinations.append(divDestination);
+                        divListeVoyage.append(divVoyage);
                     }
 
                     //document.getElementById("numTache").innerHTML = i - 1 + " tache(s)";
@@ -115,10 +118,10 @@
             alert("Erreur de Page!");
         }
 
-        function SuprimmerDestination(id, div) {
+        function SuprimmerVoyage(id, div) {
             $.ajax({
                 type: 'DELETE',
-                url: '/api/Destinations/' + id,
+                url: '/api/Voyages/' + id,
                 success: function () {
                     $(div).remove();
                     location.reload();
@@ -127,7 +130,7 @@
             });
         }
 
-        getDestinations();
+        getVoyages();
     </script>
 </body>
 </html>
