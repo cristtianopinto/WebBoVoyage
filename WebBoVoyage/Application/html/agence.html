@@ -1,0 +1,220 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+          crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="/Application/css/application.css" />-->
+
+    <style>
+        .Agence {
+            border: 1px solid lightgray;
+            padding-left: 20px;
+            padding-top: 20px;
+        }
+
+        .Agence input[type=checkbox] {
+            margin-right: 8px;
+        }
+
+        .Agence button {
+            float: right;
+            display: none;
+        }
+
+        .Agence:hover button {
+            float: right;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">
+            <i class="fas fa-concierge-bell"></i> BoVoyage
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/application/html/clients.html">Clients</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/application/html/agence.html">Agences</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/application/html/voyages.html">Voyages</a>
+                </li>
+                
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <h1>Liste des Agences</h1>
+            <div class="container" style="margin-bottom:50px;" id="listeAgences">
+
+            </div>
+
+            <form style="height:200px;">
+                <div class="form-group">
+                    <label for="Nom">Nom</label>
+                    <input type="text" class="form-control" id="Nom" placeholder="Nouvelle Agence" />
+                </div>
+                <button class="btn btn-primary" style="margin-top:50px;" onclick="return Enregistrer()">Ajouter</button> <!--on besoin d'un return-->
+
+            </form>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script>
+        function Enregistrer() {
+            var agence = {
+                Nom: $('#Nom').val()
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/api/AgenceVoyages',
+                data: agence,
+                success: function () {
+                    getAgences();
+                    $('#Nom').val('');//zerar o nome da cadegoria que entrou
+                },
+                error: Erreur
+            });
+            return false;
+        }
+        function Erreur() {
+            alert("Erreur de Page!");
+        }
+
+        function RemplirDivAgences(divAgence, agence) {
+            divAgence.empty();
+            divAgence.data('id', agence.Id);//ATENTION
+            divAgence.append($('<span></span>').text(agence.Nom));
+            var boutonSupprimer = $('<button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>');
+            boutonSupprimer.on('click', function () {
+                var idAgence = $(this).closest('.Agence').data('id');
+                SuprimmerAgence(idAgence);
+            });
+            divAgence.append(boutonSupprimer);
+            var boutonModifier = $('<button class="btn btn-primary btn-sm"><i class="fas fa-pen"></i></button>');
+            boutonModifier.on('click', function () {
+                ModifierAgence($(this));
+            });
+            divAgence.append(boutonModifier);
+        }
+
+        function getAgences() {
+            $.ajax({
+                url: '/api/AgenceVoyages',
+                success: function (agences) {
+                    var divListeAgence = $('#listeAgences');
+                    divListeAgence.empty();
+                    for (var agence of agences) {
+                        var divAgence = $('<div class="Agence" style="height:50px;"></div>');
+                        RemplirDivAgences(divAgence, agence);
+                        divListeAgence.append(divAgence);
+                    }
+                }
+            });
+        }
+        function Erreur() {
+            alert("Impossible de supprimer. Peut-être la agence est liée à une voyage?");
+        }
+        function SuprimmerAgence(id) {
+            $.ajax({
+                type: 'DELETE',
+                url: '/api/AgenceVoyages/' + id,
+                success: function () {
+                    getAgences();
+                },
+                error: Erreur
+            });
+        }
+        function ModifierAgence(boutton) {
+            var div = boutton.closest('.Agence');
+            var span = div.find('span');
+            var Nom = span.text();
+            console.log('nom:' + Nom);
+            div.data('nom', Nom);
+
+            div.empty();
+
+            var input = $('<input type="text"/>').val(span.text());
+            div.append(input);
+            input.focus();//cursor parar la
+            input.select();//palavra selecionada
+
+            input.on('keyup', function (event) {
+                var divAgence = $(this).closest('.Agence');
+                switch (event.which) {
+                    case 13://touche ENTER
+                        EnregistrerModification(divAgence);
+                        break;
+                    case 27://touche ESCAPE
+                        AnnulerModification(divAgence);
+                        break;
+                }
+            });
+
+            var buttonEnregistrer = $('<button class="btn btn-primary btn-sm"><i class="far fa-save"></i></button>');
+            buttonEnregistrer.on('click', function () {
+                let divAgence = $(this).closest('.Agence');
+                EnregistrerModification(divAgence);
+            });
+            var buttonAnnuler = $('<button class="btn btn-secondary btn-sm"><i class="fas fa-ban"></i></button>');
+            buttonAnnuler.on('click', function () {
+                let divAgence = $(this).closest('.Agence');
+                AnnulerModification(divAgence);
+            });
+
+            div.append(buttonAnnuler);
+            div.append(buttonEnregistrer);
+            /*
+            $.ajax({
+                type: 'DELETE',
+                url: '/api/Categories/' + id,
+                success: function () {
+                    $(div).remove();
+                    location.reload();
+                },
+                error: Erreur
+            });*/
+        }
+        function AnnulerModification(divAgence) {
+            let idAgence = divAgence.data('id');
+            console.log(idAgence);
+            let nomAgence = divAgence.data('nom'); // nom que j'avais stocké plus haut
+            console.log(nomAgence);
+            RemplirDivAgences(divAgence, { Id: idAgence, Nom: nomAgence });
+        }
+        function EnregistrerModification(divAgence) {
+            let idAgence = divAgence.data('id');
+            let nomAgence = divAgence.find('input').val();
+            $.ajax({
+                type: 'PUT',
+                url: '/api/AgenceVoyages/' + idAgence,
+                data: {
+                    ID: idAgence,
+                    nom: nomAgence
+                },
+                success: function () {
+                    RemplirDivAgences(divAgence, { ID: idAgence, Nom: nomAgence });
+                }
+            });
+        }
+
+
+        getAgences();
+    </script>
+</body>
+</html>

@@ -7,13 +7,13 @@ namespace WebBoVoyage.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AjouterAssurance : IMigrationMetadata
+    public sealed partial class Init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AjouterAssurance));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201809201234019_AjouterAssurance"; }
+            get { return "201809201338004_Init"; }
         }
         
         string IMigrationMetadata.Source

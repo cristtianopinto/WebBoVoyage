@@ -95,7 +95,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Application\html\agence.html" />
     <Content Include="Application\html\clients.html" />
+    <Content Include="Application\html\nouveauclient.html" />
     <Content Include="Application\html\principal.html" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
@@ -113,13 +115,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201809201209228_Init.cs" />
-    <Compile Include="Migrations\201809201209228_Init.Designer.cs">
-      <DependentUpon>201809201209228_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809201234019_AjouterAssurance.cs" />
-    <Compile Include="Migrations\201809201234019_AjouterAssurance.Designer.cs">
-      <DependentUpon>201809201234019_AjouterAssurance.cs</DependentUpon>
+    <Compile Include="Migrations\201809201338004_Init.cs" />
+    <Compile Include="Migrations\201809201338004_Init.Designer.cs">
+      <DependentUpon>201809201338004_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AgenceVoyage.cs" />
@@ -147,11 +145,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201809201209228_Init.resx">
-      <DependentUpon>201809201209228_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809201234019_AjouterAssurance.resx">
-      <DependentUpon>201809201234019_AjouterAssurance.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809201338004_Init.resx">
+      <DependentUpon>201809201338004_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
