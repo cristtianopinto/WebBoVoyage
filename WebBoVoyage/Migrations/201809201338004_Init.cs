@@ -17,6 +17,16 @@ namespace WebBoVoyage.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.Assurance",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Montant = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        TypeAssurance = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.Clients",
                 c => new
                     {
@@ -88,6 +98,7 @@ namespace WebBoVoyage.Migrations
             DropTable("dbo.Participants");
             DropTable("dbo.Destination");
             DropTable("dbo.Clients");
+            DropTable("dbo.Assurance");
             DropTable("dbo.AgenceVoyage");
         }
     }
