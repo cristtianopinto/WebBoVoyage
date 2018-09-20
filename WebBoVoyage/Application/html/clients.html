@@ -8,7 +8,29 @@
           crossorigin="anonymous" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
           crossorigin="anonymous">
-    <link rel="stylesheet" href="/Application/css/application.css" />
+    <!--<link rel="stylesheet" href="/Application/css/application.css" />-->
+
+    <style>
+        .Client {
+            border: 1px solid lightgray;
+            padding-left: 20px;
+            padding-top: 20px;
+        }
+
+        .Client input[type=checkbox] {
+            margin-right: 8px;
+        }
+
+        .Client button {
+            float: right;
+            display: none;
+        }
+
+        .Client:hover button {
+            float: right;
+            display: block;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
@@ -33,5 +55,59 @@
         </div>
     </nav>
     <h1>bienvenue - Clients</h1>
+    <div class="row" id="listeClients"> </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script>
+        function getClients() {
+            $.ajax({
+                url: '/api/Clients',
+                success: function (Clients) {
+                    var divListeClients = $('#listeClients'); 
+                    divListeClients.addClass('row');
+                    //var i = 1;
+                    for (client of Clients) {
+                        //var id = 'id' + i;
+
+                        var divClient = $('<div class="Client"></div>');
+                        divClient.addClass('col-sm-8');
+                        divClient.attr("data-id", client.ID);
+                        divClient.empty; 
+
+                        var buttonDelete = $('<button class="btn btn-danger btn-sm" style = "float:right;"><i class="fas fa-trash"></i></button>');
+                        buttonDelete.on('click', function () {
+                            var div = $(this).closest(".Client");
+                            var idClient = div.attr("data-id"); // suppression
+                            //SuprimmerClient(idClient, div); TODO
+                        });
+
+                        divClient.append(buttonDelete);
+                                                
+                        divClient.append($('<span ></span>').text(client.Civilite));
+                        divClient.append($(' <span> </span>'));
+                        divClient.append($('<span ></span>').text(client.Nom));
+                        divClient.append($('<br/>'));
+                        divClient.append($('<span ></span>').text(client.Prenom));
+                        divClient.append($(' <span> - </span>'));
+                        divClient.append($('<span ></span>').text(client.Adresse));
+                        divClient.append($(' <span> - </span>'));
+                        divClient.append($('<span ></span>').text(client.Telephone));
+                        divClient.append($(' <span> -  </span>'));
+                        divClient.append($('<span ></span>').text(client.DateNaissance));
+                        
+                        //i++;
+                        divListeClients.append(divClient);
+                    }
+
+                    //document.getElementById("numTache").innerHTML = i - 1 + " tache(s)";
+                },
+                error: Erreur
+            });
+        }
+        function Erreur() {
+            alert("Erreur de Page!");
+        }
+        getClients();
+    </script>
 </body>
 </html>
