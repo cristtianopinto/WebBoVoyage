@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebBoVoyage.Models
 {
+    [Table("Voyages")]
     public class Voyage
    
     {
@@ -25,20 +26,20 @@ namespace WebBoVoyage.Models
         [Column("PrixParPersonne")]
         public decimal PrixParPersonne { get; set; }
 
-        [Column("IdDestination")]
+        /*[Column("IdDestination")]*/
         public int IdDestination{ get; set; }
-        [Column("IdAgenceVoyage")]
+        /*[Column("IdAgenceVoyage")]*/
         public int IdAgenceVoyage { get; set; }
 
         [ForeignKey("IdDestination")]
-        public virtual Destination Destination { get; set; }
+        public Destination Destination { get; set; }//IL FAUT PAS MARQUER COMMET VIRTUAL
 
         [ForeignKey("IdAgenceVoyage")]
-        public virtual AgenceVoyage AgenceVoyage { get; set; }
+        public AgenceVoyage AgenceVoyage { get; set; }//IL FAUT PAS MARQUER COMMET VIRTUAL
 
         public void Reserver(int places)
         {
-            this.PlacesDisponibles --;
+            this.PlacesDisponibles -= places;
         }
 
        

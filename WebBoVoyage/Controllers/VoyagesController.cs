@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using WebBoVoyage.Data;
@@ -20,7 +16,9 @@ namespace WebBoVoyage.Controllers
         // GET: api/Voyages
         public IQueryable<Voyage> GetVoyages()
         {
-            return db.Voyages;
+            return db.Voyages
+                .Include(x => x.Destination)
+                .Include(x => x.AgenceVoyage);
         }
 
         // GET: api/Voyages/5

@@ -79,7 +79,14 @@
                 <label for="Prix">Prix pour personne:</label>
                 <input type="text" class="form-control" id="Prix" />
             </div>
-
+            <div class="form-group">
+                <label for="Agence">Agence*</label>
+                <select class="form-control" id="Agence"></select>
+            </div>
+            <div class="form-group">
+                <label for="Destination">Destination*</label>
+                <select class="form-control" id="Destination"></select>
+            </div>
             <button class="btn btn-primary" style="margin-top:50px;" onclick="return EnregistrerVoyage()">Enregistrer</button> <!--on besoin d'un return-->
         </form>
 
@@ -98,7 +105,8 @@
                 DateRetour: $('#DateRetour').val(),
                 PlacesDisponible: $('#Place').val(),
                 PrixParPersonne: $('#Prix').val(),
-                //TODO idDestination - idAgence
+                IdAgenceVoyage: $('#Agence').val(),
+                IdDestination: $('#Destination').val()                
             };
 
             $.ajax({
@@ -106,7 +114,7 @@
                 url: '/api/Voyages',
                 data: voyage,
                 success: function () {
-                    window.location.href = '/application/Html/clients.html';
+                    window.location.href = '/application/Html/voyage.html';
                 },
                 error: Erreur
             });
@@ -115,6 +123,44 @@
         function Erreur() {
             alert("Erreur de Page!");
         }
+
+        function LoadAgences() {
+            $.ajax({
+                url: '/api/AgenceVoyages',
+                success: function (agences) {
+                    var select = $("#Agence");
+                    select.empty();
+                    select.append($('<option></option>')); 
+                    for (agence of agences) {
+                        var option = $('<option></option>');
+                        option.val(agence.Id);
+                        console.log(agence.Id);
+                        option.text(agence.Nom);
+                        select.append(option);
+                    }
+                }
+            });
+        }
+        
+        function LoadDestination() {
+            $.ajax({
+                url: '/api/Destinations',
+                success: function (destinations) {
+                    var select = $("#Destination");
+                    select.empty();
+                    select.append($('<option></option>')); //element vide
+                    for (destination of destinations) {
+                        var option = $('<option></option>');
+                        option.val(destination.Id);
+                        console.log(destination.Id);
+                        option.text(destination.Pays);
+                        select.append(option);
+                    }
+                }
+            });
+        }
+        LoadAgences();
+        LoadDestination();
     </script>
 </body>
 </html>

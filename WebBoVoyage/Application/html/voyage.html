@@ -17,19 +17,19 @@
             padding-top: 20px;
         }
 
-            .Voyage input[type=checkbox] {
-                margin-right: 8px;
-            }
+        .Voyage input[type=checkbox] {
+            margin-right: 8px;
+        }
 
-            .Voyage button {
-                float: right;
-                display: none;
-            }
+        .Voyage button {
+            float: right;
+            display: none;
+        }
 
-            .Voyage:hover button {
-                float: right;
-                display: block;
-            }
+        .Voyage:hover button {
+            float: right;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -62,7 +62,7 @@
         <div class="row" id="listeVoyages"> </div>
         <div class="row">
             <div style="margin-top: 100px;" class="col-sm-6">
-                <a href="/application/Html/nouveauclient.html" class="btn btn-primary btn-sm">Nouveau Voyage</a>
+                <a href="/application/Html/nouveauvoyage.html" class="btn btn-primary btn-sm">Nouveau Voyage</a>
             </div>
         </div>
     </div>
@@ -92,21 +92,25 @@
                         });
 
                         divVoyage.append(buttonDelete);
-
+                        divVoyage.append($('<span class="h4"></span>').text(voyage.AgenceVoyage.Nom));
+                        divVoyage.append($(' <br/>'));
+                        divVoyage.append($('<span class="h5"></span>').text(voyage.Destination.Continent));
+                        divVoyage.append($(' <span> - </span>'));
+                        divVoyage.append($('<span class="h5"></span>').text(voyage.Destination.Pays));
+                        divVoyage.append($(' <br/>'));
                         divVoyage.append($('<span ></span>').text(voyage.DateAller));
-                        /*
-                        divVoyage.append($(' <span> </span>'));
+                        
+                        divVoyage.append($(' <span> - </span>'));
                         divVoyage.append($('<span ></span>').text(voyage.DateRetour));
                         divVoyage.append($('<br/>'));
-                        divVoyage.append($('<span ></span>').text(voyage.IDDestination));
-                        divVoyage.append($(' <span> - </span>'));
-                        divVoyage.append($('<span ></span>').text(voyage.PrixParPersonne));
-                        divVoyage.append($(' <span> - </span>'));
-                        divVoyage.append($('<span ></span>').text(voyage.PlaceDisponible));
-                        */
+                        
+                        divVoyage.append($('<span class="h5"></span>').text('€: '+voyage.PrixParPersonne +',00'));
+                        divVoyage.append($(' <span>  - Disponibilité: </span>'));
+                        divVoyage.append($('<span ></span>').text(voyage.PlacesDisponibles+ ' places.'));
+                        
          //????
                         //i++;
-                        divListeVoyage.append(divVoyage);
+                        divListeVoyages.append(divVoyage);
                     }
 
                     //document.getElementById("numTache").innerHTML = i - 1 + " tache(s)";
