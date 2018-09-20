@@ -104,6 +104,7 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AgenceVoyagesController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Data\BoVoyageDbContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -117,9 +118,14 @@
     <Compile Include="Migrations\201809200822433_AjouterAgenceVoyage.Designer.cs">
       <DependentUpon>201809200822433_AjouterAgenceVoyage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809200848404_AjouterDestination.cs" />
+    <Compile Include="Migrations\201809200848404_AjouterDestination.Designer.cs">
+      <DependentUpon>201809200848404_AjouterDestination.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AgenceVoyage.cs" />
     <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\Destination.cs" />
     <Compile Include="Models\Participant.cs" />
     <Compile Include="Models\Personne.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -144,6 +150,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809200822433_AjouterAgenceVoyage.resx">
       <DependentUpon>201809200822433_AjouterAgenceVoyage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809200848404_AjouterDestination.resx">
+      <DependentUpon>201809200848404_AjouterDestination.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
