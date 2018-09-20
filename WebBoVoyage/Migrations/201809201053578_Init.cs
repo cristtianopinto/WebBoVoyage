@@ -3,12 +3,12 @@ namespace TodoList.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class init : DbMigration
+    public partial class Init : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.AgenceVoyage",
+                "dbo.AgenceVoyages",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -32,7 +32,7 @@ namespace TodoList.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Destination",
+                "dbo.Destinations",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -58,14 +58,37 @@ namespace TodoList.Migrations
                     })
                 .PrimaryKey(t => t.Id);
             
+            CreateTable(
+                "dbo.Voyages",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        DateAller = c.DateTime(nullable: false),
+                        DateRetour = c.DateTime(nullable: false),
+                        PlacesDisponibles = c.Int(nullable: false),
+                        PrixParPersonne = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        IdDestination = c.Int(nullable: false),
+                        IdAgenceVoyage = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AgenceVoyages", t => t.IdAgenceVoyage, cascadeDelete: true)
+                .ForeignKey("dbo.Destinations", t => t.IdDestination, cascadeDelete: true)
+                .Index(t => t.IdDestination)
+                .Index(t => t.IdAgenceVoyage);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.Voyages", "IdDestination", "dbo.Destinations");
+            DropForeignKey("dbo.Voyages", "IdAgenceVoyage", "dbo.AgenceVoyages");
+            DropIndex("dbo.Voyages", new[] { "IdAgenceVoyage" });
+            DropIndex("dbo.Voyages", new[] { "IdDestination" });
+            DropTable("dbo.Voyages");
             DropTable("dbo.Participants");
-            DropTable("dbo.Destination");
+            DropTable("dbo.Destinations");
             DropTable("dbo.Clients");
-            DropTable("dbo.AgenceVoyage");
+            DropTable("dbo.AgenceVoyages");
         }
     }
 }

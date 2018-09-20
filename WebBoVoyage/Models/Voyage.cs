@@ -7,8 +7,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebBoVoyage.Models
 {
-    public class Voyage
-   
+    [Table("Voyages")]
+    public class Voyage   
     {
         [Column("Id")]       
         public int Id { get; set; }
@@ -30,10 +30,10 @@ namespace WebBoVoyage.Models
         [Column("IdAgenceVoyage")]
         public int IdAgenceVoyage { get; set; }
 
-        [ForeignKey("DestinationId")]
+        [ForeignKey("IdDestination")]
         public virtual Destination Destination { get; set; }
 
-        [ForeignKey("AgenceVoyageId")]
+        [ForeignKey("IdAgenceVoyage")]
         public AgenceVoyage AgenceVoyage { get; set; }
 
         public void Reserver(int places)

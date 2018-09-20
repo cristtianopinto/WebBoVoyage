@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebBoVoyage.Models
-{   [Table ("AgenceVoyage")]
+{   [Table ("AgenceVoyages")]
     public class AgenceVoyage
     {
 
