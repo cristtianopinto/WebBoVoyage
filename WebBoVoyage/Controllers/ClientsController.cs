@@ -16,18 +16,18 @@ namespace WebBoVoyage.Controllers
     public class ClientsController : ApiController
     {
         private BoVoyageDbContext db = new BoVoyageDbContext();
-        
+
         // GET: api/Clients
-        public IQueryable<Client> GetPersonnes()
+        public IQueryable<Client> GetClients()
         {
-            return db.Clients;//?
+            return db.Clients;
         }
 
         // GET: api/Clients/5
         [ResponseType(typeof(Client))]
         public IHttpActionResult GetClient(int id)
         {
-            Client client = db.Clients.Find(id);//?
+            Client client = db.Clients.Find(id);
             if (client == null)
             {
                 return NotFound();
@@ -80,7 +80,7 @@ namespace WebBoVoyage.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Personnes.Add(client);
+            db.Clients.Add(client);
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = client.Id }, client);
@@ -90,13 +90,13 @@ namespace WebBoVoyage.Controllers
         [ResponseType(typeof(Client))]
         public IHttpActionResult DeleteClient(int id)
         {
-            Client client = db.Clients.Find(id);//?
+            Client client = db.Clients.Find(id);
             if (client == null)
             {
                 return NotFound();
             }
 
-            db.Personnes.Remove(client);
+            db.Clients.Remove(client);
             db.SaveChanges();
 
             return Ok(client);
@@ -113,7 +113,7 @@ namespace WebBoVoyage.Controllers
 
         private bool ClientExists(int id)
         {
-            return db.Personnes.Count(e => e.Id == id) > 0;
+            return db.Clients.Count(e => e.Id == id) > 0;
         }
     }
 }
