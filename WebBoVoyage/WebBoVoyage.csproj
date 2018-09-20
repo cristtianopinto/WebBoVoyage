@@ -100,6 +100,7 @@
     <Content Include="Application\html\destination.html" />
     <Content Include="Application\html\nouveauclient.html" />
     <Content Include="Application\html\nouveaudestination.html" />
+    <Content Include="Application\html\nouveauvoyage.html" />
     <Content Include="Application\html\principal.html" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />

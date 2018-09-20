@@ -11,22 +11,22 @@
     <!--<link rel="stylesheet" href="/Application/css/application.css" />-->
 
     <style>
-        .Destination {
+        .Client {
             border: 1px solid lightgray;
             padding-left: 20px;
             padding-top: 20px;
         }
 
-            .Destination input[type=checkbox] {
+            .Client input[type=checkbox] {
                 margin-right: 8px;
             }
 
-            .Destination button {
+            .Client button {
                 float: right;
                 display: none;
             }
 
-            .Destination:hover button {
+            .Client:hover button {
                 float: right;
                 display: block;
             }
@@ -48,47 +48,39 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/application/html/agence.html">Agences</a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/application/html/destination.html">Destination</a>
-                </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/application/html/destination.html">Destinacion</a>
+                </li>
+                <li class="nav-item active">
                     <a class="nav-link" href="/application/html/voyage.html">Voyages</a>
                 </li>
             </ul>
         </div>
     </nav>
     <div class="container">
-        <h1>Nauveau - Destination</h1>
-        <div class="row" id="listeDestinations"> </div>
+        <h1>Nauveau - Voyage</h1>
+        <div class="row" id="listeVoyages"> </div>
 
         <form novalidate>
             <!--novalidate bootstrap-->
             <div class="form-group">
-                <label for="Cotinent">Cotinent</label>
-                <input type="text" class="form-control" id="Cotinent" required />
-                <!--
-                <div class='invalid-feedback'>
-                    Champ requis
-                </div>-->
+                <label for="DateAller">Date de Aller</label>
+                <input class="form-control" type="date" id="DateAller" />
             </div>
             <div class="form-group">
-                <label for="Pays">Pays*</label>
-                <input type="text" class="form-control" id="Pays" required />
-                <!--
-                <div class='invalid-feedback'>
-                    Champ requis
-                </div>-->
+                <label for="DateRetour">Date de Retour</label>
+                <input class="form-control" type="date" id="DateRetour" />
             </div>
             <div class="form-group">
-                <label for="Region">Region</label>
-                <input type="text" class="form-control" id="Region" required />
+                <label for="Place">Place disponible:</label>
+                <input type="text" class="form-control" id="Place" />
             </div>
             <div class="form-group">
-                <label for="Description">Description</label>
-                <textarea class="form-control" id="Description" rows="3"></textarea>
+                <label for="Prix">Prix pour personne:</label>
+                <input type="text" class="form-control" id="Prix" />
             </div>
-            
-            <button class="btn btn-primary" style="margin-top:50px;" onclick="return EnregistrerDestination()">Enregistrer</button> <!--on besoin d'un return-->
+
+            <button class="btn btn-primary" style="margin-top:50px;" onclick="return EnregistrerVoyage()">Enregistrer</button> <!--on besoin d'un return-->
         </form>
 
 
@@ -96,23 +88,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script>
 
-        function EnregistrerDestination() {
+        function EnregistrerVoyage() {
             /*if (!Valider()) {
                 return false;
             }*/
-            var Destination = {
-                Cotinent: $('#Cotinent').val(),
-                Pays: $('#Pays').val(),
-                Region: $('#Region').val(),
-                Description: $('#Description').val()                
+
+            var voyage = {
+                DateAller: $('#DateAller').val(),
+                DateRetour: $('#DateRetour').val(),
+                PlacesDisponible: $('#Place').val(),
+                PrixParPersonne: $('#Prix').val(),
+                //TODO idDestination - idAgence
             };
 
             $.ajax({
                 type: 'POST',
-                url: '/api/Destinations',
-                data: Destination,
+                url: '/api/Voyages',
+                data: voyage,
                 success: function () {
-                    window.location.href = '/application/Html/destination.html';
+                    window.location.href = '/application/Html/clients.html';
                 },
                 error: Erreur
             });
