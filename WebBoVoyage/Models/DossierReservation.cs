@@ -60,5 +60,4 @@ namespace WebBoVoyage.Models
     public enum EtatDossierReservation { EnAttente=0, EnCours=1, Refuse=2, Accepte=3}
     public enum RaisonAnnulationDossier {SansAnnulation=0, Client = 1, PlacesInsuffisantes = 2 }
    
-
 }
