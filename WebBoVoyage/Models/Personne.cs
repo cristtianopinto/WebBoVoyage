@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace WebBoVoyage.Models
 {
     [Table("Personnes")]
-    public class Personne
+    public abstract class Personne
     {
         [Column("Id")]
         public int Id { get; set; }
@@ -35,6 +35,6 @@ namespace WebBoVoyage.Models
         public DateTime DateNaissance { get; set; }
 
         [NotMapped]
-        public int Age { get; set; }
+        public int Age { get { return DateTime.Today.Year - DateNaissance.Year; } }
     }
 }

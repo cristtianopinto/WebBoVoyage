@@ -16,18 +16,18 @@ namespace WebBoVoyage.Controllers
     public class ClientsController : ApiController
     {
         private BoVoyageDbContext db = new BoVoyageDbContext();
-
+        
         // GET: api/Clients
         public IQueryable<Client> GetPersonnes()
         {
-            return db.Clients;// ?
+            return db.Clients;//?
         }
 
         // GET: api/Clients/5
         [ResponseType(typeof(Client))]
         public IHttpActionResult GetClient(int id)
         {
-            Client client = db.Clients.Find(id);// ?
+            Client client = db.Clients.Find(id);//?
             if (client == null)
             {
                 return NotFound();
@@ -90,7 +90,7 @@ namespace WebBoVoyage.Controllers
         [ResponseType(typeof(Client))]
         public IHttpActionResult DeleteClient(int id)
         {
-            Client client = db.Clients.Find(id);// ?
+            Client client = db.Clients.Find(id);//?
             if (client == null)
             {
                 return NotFound();

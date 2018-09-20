@@ -95,6 +95,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Application\html\clients.html" />
+    <Content Include="Application\html\principal.html" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="Web.config" />
@@ -107,9 +109,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201809191216543_Init.cs" />
-    <Compile Include="Migrations\201809191216543_Init.Designer.cs">
-      <DependentUpon>201809191216543_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201809200727165_Init.cs" />
+    <Compile Include="Migrations\201809200727165_Init.Designer.cs">
+      <DependentUpon>201809200727165_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Client.cs" />
@@ -128,13 +130,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Application\css\" />
-    <Folder Include="Application\html\" />
     <Folder Include="Application\js\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201809191216543_Init.resx">
-      <DependentUpon>201809191216543_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809200727165_Init.resx">
+      <DependentUpon>201809200727165_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
