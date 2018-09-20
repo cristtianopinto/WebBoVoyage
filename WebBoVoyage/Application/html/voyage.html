@@ -58,7 +58,7 @@
         </div>
     </nav>
     <div class="container">
-        <h1>bienvenue - Voyage</h1>
+        <h1 style="color: blueviolet">Bienvenue - Voyages en promo</h1>
         <div class="row" id="listeVoyages"> </div>
         <div class="row">
             <div style="margin-top: 100px;" class="col-sm-6">
@@ -84,21 +84,28 @@
                         divVoyage.attr("data-id", voyage.Id);
                         divVoyage.empty;
 
-                        var inputEtat = $('<input type="checkbox">');
+                        var inputEtat = $('<input type="checkbox">');   //Choisir this offre voyage
                         inputEtat.attr('checked', voyage.Statut);
                         inputEtat.on('click', function () {
                             var div = $(this).closest(".Voyage");
                             var idVoyage = div.attr("data-id");
                             ModifierStatutVoyage(idvoyage, this);
                         });
-
+                        var boutonReserver = $('<button class="btn btn-primary" style = "float:right;">Reserver</button>');
+                        boutonReserver.on('click', function () {
+                            var div = $(this).closest(".Voyage");
+                            var idVoyage = div.attr("data-id"); //Reservation
+                            ChoisirVoyage(idVoyage, div); //Choisir Voyage pour reserver
+                        });
                         var buttonDelete = $('<button class="btn btn-danger btn-sm" style = "float:right;"><i class="fas fa-trash"></i></button>');
                         buttonDelete.on('click', function () {
                             var div = $(this).closest(".Voyage");
                             var idVoyage = div.attr("data-id"); // suppression
                             SuprimmerVoyage(idVoyage, div); //TODO
                         });
+
                         divVoyage.append(inputEtat);
+                        
                         divVoyage.append(buttonDelete);
                         divVoyage.append($('<span class="h4"></span>').text(voyage.AgenceVoyage.Nom));
                         divVoyage.append($(' <br/>'));
@@ -114,7 +121,8 @@
                         
                         divVoyage.append($('<span class="h5"></span>').text('€: '+voyage.PrixParPersonne +',00'));
                         divVoyage.append($(' <span>  - Disponibilité: </span>'));
-                        divVoyage.append($('<span ></span>').text(voyage.PlacesDisponibles+ ' places.'));
+                        divVoyage.append($('<span ></span>').text(voyage.PlacesDisponibles + ' places.'));
+                        divVoyage.append(boutonReserver);
                         
          //????
                         //i++;
@@ -143,6 +151,10 @@
                 },
                 error: Erreur
             });
+        }
+        function ChoisirVoyage(idVoyage, div)
+        {
+            alert('Cou Cou');
         }
         function SuprimmerVoyage(id, div) {
             $.ajax({
