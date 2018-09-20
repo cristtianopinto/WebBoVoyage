@@ -16,6 +16,7 @@ namespace WebBoVoyage.Data
         public DbSet<Participant> Participants { get; set; }        
         public DbSet<AgenceVoyage> AgenceVoyages { get; set; }
         public DbSet<Destination> Destinations { get; set; }
+        public DbSet<Voyage> Voyages { get; set; }
 
     }
 }
