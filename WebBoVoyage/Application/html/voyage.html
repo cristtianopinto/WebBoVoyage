@@ -35,7 +35,8 @@
 <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <a class="navbar-brand" href="/">
-            <i class="fas fa-concierge-bell"></i> BoVoyage
+            <i class="fas fa-concierge-bell"></i> BoVoyage <i class="fas fa-umbrella-beach"></i>
+
         </a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
@@ -49,7 +50,7 @@
                     <a class="nav-link" href="/application/html/agence.html">Agences</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/application/html/destination.html">Destinacion</a>
+                    <a class="nav-link" href="/application/html/destination.html">Destination</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="/application/html/voyage.html">Voyages</a>
@@ -119,9 +120,11 @@
                         divVoyage.append($('<span ></span>').text(voyage.DateRetour));
                         divVoyage.append($('<br/>'));
                         
-                        divVoyage.append($('<span class="h5"></span>').text('€: '+voyage.PrixParPersonne +',00'));
-                        divVoyage.append($(' <span>  - Disponibilité: </span>'));
+                        divVoyage.append($('<span style="color:red" class="h5"> </span>').text('€:' + 0.75 * voyage.PrixParPersonne));
+                        divVoyage.append($('<s> </s>').text(voyage.PrixParPersonne));
+                        divVoyage.append($(' <span> - Disponibilité : </span>'));
                         divVoyage.append($('<span ></span>').text(voyage.PlacesDisponibles + ' places.'));
+                       
                         divVoyage.append(boutonReserver);
                         
          //????

@@ -35,7 +35,8 @@
 <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <a class="navbar-brand" href="/">
-            <i class="fas fa-concierge-bell"></i> BoVoyage
+            <i class="fas fa-concierge-bell"></i> BoVoyage  <i class="fas fa-plane-departure"></i>
+
         </a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
@@ -49,7 +50,7 @@
                     <a class="nav-link" href="/application/html/agence.html">Agences</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/application/html/destination.html">Destinacion</a>
+                    <a class="nav-link" href="/application/html/destination.html">Destination</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/application/html/voyage.html">Voyages</a>
@@ -58,7 +59,7 @@
         </div>
     </nav>
     <div class="container">
-        <h1 style="color: blueviolet">Bienvenue - Les destinations tendance à découvrir</h1>
+        <h1 style="color: blueviolet">Bienvenue - Les destinations tendances à découvrir</h1>
         <div class="row" id="listeDestinations"> </div>
         <div class="row">
             <div style="margin-top: 100px;" class="col-sm-6">
@@ -92,14 +93,15 @@
                         });
 
                         divDestination.append(buttonDelete);
-
-                        divDestination.append($('<span ></span>').text(Destination.Continent));
-                        divDestination.append($(' <span> </span>'));
-                        divDestination.append($('<span ></span>').text(Destination.Pays));
+                        divDestination.append($('<span style="font-size:22px; font-weight:bold;" >Continent: </span>'));
+                        divDestination.append($('<span style="font-size:22px" ></span>').text(Destination.Continent));
+                        divDestination.append($('<span style="font-size:20px;font-weight:bold"> - Pays :  </span>'));
+                        divDestination.append($('<span style="font-size:20px" ></span>').text(Destination.Pays));
                         divDestination.append($('<br/>'));
-                        divDestination.append($('<span ></span>').text(Destination.Region));
-                        divDestination.append($(' <span> - </span>'));
-                        divDestination.append($('<span ></span>').text(Destination.Description));
+                        divDestination.append($('<span style="font-size:18px;font-weight:bold" >Region: </span>'));
+                        divDestination.append($('<span style="font-size:18px"></span>').text(Destination.Region));
+                        divDestination.append($(' <span style="font-size:16px;font-weight:bold"> - Description : </span>'));
+                        divDestination.append($('<span style="font-size:16px"></span>').text(Destination.Description));
                         
 
                         //i++;
