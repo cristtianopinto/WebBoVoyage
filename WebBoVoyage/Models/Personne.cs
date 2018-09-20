@@ -7,34 +7,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebBoVoyage.Models
 {
-    [Table("Personnes")]
+    
     public abstract class Personne
     {
-        [Column("Id")]
-        public int Id { get; set; }
-
-        [Column("Civilite")]
-        public string Civilite { get; set; }
-
-        [Column("Nom")]
-        [Required]
-        [StringLength(50)]
-        public string Nom { get; set; }
-
-        [Column("Prenom")]
-        [StringLength(30)]
-        public string Prenom { get; set; }
-
-        [Column("Adresse")]
+       
+        public int Id { get; set; }        
+        public string Civilite { get; set; }        
+        public string Nom { get; set; }        
+        public string Prenom { get; set; }        
         public string Adresse { get; set; }
-
-        [Column("Telephone")]
         public string Telephone { get; set; }
-
-        [Column("DateNaissance")]
         public DateTime DateNaissance { get; set; }
-
-        [NotMapped]
         public int Age { get { return DateTime.Today.Year - DateNaissance.Year; } }
     }
 }

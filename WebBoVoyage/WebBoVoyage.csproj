@@ -123,6 +123,10 @@
     <Compile Include="Migrations\201809200848404_AjouterDestination.Designer.cs">
       <DependentUpon>201809200848404_AjouterDestination.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809200914075_CorrectionPersonne.cs" />
+    <Compile Include="Migrations\201809200914075_CorrectionPersonne.Designer.cs">
+      <DependentUpon>201809200914075_CorrectionPersonne.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AgenceVoyage.cs" />
     <Compile Include="Models\Client.cs" />
@@ -155,6 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809200848404_AjouterDestination.resx">
       <DependentUpon>201809200848404_AjouterDestination.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809200914075_CorrectionPersonne.resx">
+      <DependentUpon>201809200914075_CorrectionPersonne.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
