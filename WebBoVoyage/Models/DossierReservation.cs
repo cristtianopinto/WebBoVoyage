@@ -8,13 +8,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebBoVoyage.Models
 {
+    [Table("DossierReservation")]
     public class DossierReservation
     {
-            public int Id { get; set; }
-            public int NumeroUnique { get; set; }
-            public string NumeroCarteBancaire { get; set; }
-            public decimal PrixParPersonne { get; set; }
-            public decimal PrixTotal
+        [Column("Id")]
+        public int Id { get; set; }
+        [Column("NumeroCarteBancaire")]
+        public string NumeroCarteBancaire { get; set; }
+        [Column("PrixParPersonne")]
+        public decimal PrixParPersonne { get; set; }
+        [Column("Prixtotal")]
+        public decimal PrixTotal
             {
                 get
                 {
@@ -34,25 +38,27 @@ namespace WebBoVoyage.Models
                     return prixTotal;
                 }
             }
-            public EtatDossierReservation EtatDossierReservation { get; set; }
-            public RaisonAnnulationDossier RaisonAnnulationDossier { get; set; }
-            public int VoyageId { get; set; }
-            public int ClientId { get; set; }
+        [Column("EtatDossierReservation")]
+        public EtatDossierReservation EtatDossierReservation { get; set; }
+        [Column("RaisonAnnulationDossier")]
+        public RaisonAnnulationDossier RaisonAnnulationDossier { get; set; }
 
+        [Column("IdVoyage")]
+        public int IdVoyage { get; set; }
+        [Column("IdClient")]
+        public int IdClient { get; set; }
 
-            [ForeignKey("VoyageId")]
-            public virtual Voyage Voyage { get; set; }
+        [ForeignKey("IdVoyage")]
+        public virtual Voyage Voyage { get; set; }
 
-            [ForeignKey("ClientId")]
-            public virtual Client Client { get; set; }
+        [ForeignKey("IdClient")]
+        public virtual Client Client { get; set; }
 
-            public virtual ICollection<Assurance> Assurances { get; set; }
-            public virtual ICollection<Participant> Participants { get; set; }
+        public virtual ICollection<Assurance> Assurances { get; set; }
+        public virtual ICollection<Participant> Participants { get; set; }
     }
-
-
-        public enum EtatDossierReservation { EnAttente=0, EnCours=1, Refuse=2, Accepte=3}
-        public enum RaisonAnnulationDossier { Client = 1, PlacesInsuffisantes = 2 }
+    public enum EtatDossierReservation { EnAttente=0, EnCours=1, Refuse=2, Accepte=3}
+    public enum RaisonAnnulationDossier {SansAnnulation=0, Client = 1, PlacesInsuffisantes = 2 }
    
 
 }
