@@ -25,7 +25,7 @@ namespace WebBoVoyage.Models
                         return 0d;
                 }
         }
-        [ForeignKey("IdDossierReservation")]
+
         public int IdDossierReservation { get; set; }
 
         [ForeignKey("IdDossierReservation")]

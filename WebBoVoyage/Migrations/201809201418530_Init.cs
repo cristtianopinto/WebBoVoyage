@@ -23,8 +23,11 @@ namespace WebBoVoyage.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Montant = c.Decimal(nullable: false, precision: 18, scale: 2),
                         TypeAssurance = c.Int(nullable: false),
+                        DossierReservation_Id = c.Int(),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.DossierReservation", t => t.DossierReservation_Id)
+                .Index(t => t.DossierReservation_Id);
             
             CreateTable(
                 "dbo.Clients",
@@ -54,11 +57,30 @@ namespace WebBoVoyage.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.DossierReservation",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        NumeroCarteBancaire = c.String(),
+                        PrixParPersonne = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        EtatDossierReservation = c.Int(nullable: false),
+                        RaisonAnnulationDossier = c.Int(nullable: false),
+                        IdVoyage = c.Int(nullable: false),
+                        IdClient = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Clients", t => t.IdClient, cascadeDelete: true)
+                .ForeignKey("dbo.Voyages", t => t.IdVoyage, cascadeDelete: true)
+                .Index(t => t.IdVoyage)
+                .Index(t => t.IdClient);
+            
+            CreateTable(
                 "dbo.Participants",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Reduction = c.Single(nullable: false),
+                        NumeroUnique = c.Int(nullable: false),
+                        IdDossierReservation = c.Int(nullable: false),
                         Civilite = c.String(),
                         Nom = c.String(),
                         Prenom = c.String(),
@@ -66,7 +88,9 @@ namespace WebBoVoyage.Migrations
                         Telephone = c.String(),
                         DateNaissance = c.DateTime(nullable: false),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.DossierReservation", t => t.IdDossierReservation, cascadeDelete: true)
+                .Index(t => t.IdDossierReservation);
             
             CreateTable(
                 "dbo.Voyages",
@@ -90,12 +114,21 @@ namespace WebBoVoyage.Migrations
         
         public override void Down()
         {
+            DropForeignKey("dbo.DossierReservation", "IdVoyage", "dbo.Voyages");
             DropForeignKey("dbo.Voyages", "IdDestination", "dbo.Destination");
             DropForeignKey("dbo.Voyages", "IdAgenceVoyage", "dbo.AgenceVoyage");
+            DropForeignKey("dbo.Participants", "IdDossierReservation", "dbo.DossierReservation");
+            DropForeignKey("dbo.DossierReservation", "IdClient", "dbo.Clients");
+            DropForeignKey("dbo.Assurance", "DossierReservation_Id", "dbo.DossierReservation");
             DropIndex("dbo.Voyages", new[] { "IdAgenceVoyage" });
             DropIndex("dbo.Voyages", new[] { "IdDestination" });
+            DropIndex("dbo.Participants", new[] { "IdDossierReservation" });
+            DropIndex("dbo.DossierReservation", new[] { "IdClient" });
+            DropIndex("dbo.DossierReservation", new[] { "IdVoyage" });
+            DropIndex("dbo.Assurance", new[] { "DossierReservation_Id" });
             DropTable("dbo.Voyages");
             DropTable("dbo.Participants");
+            DropTable("dbo.DossierReservation");
             DropTable("dbo.Destination");
             DropTable("dbo.Clients");
             DropTable("dbo.Assurance");
