@@ -13,7 +13,7 @@ namespace WebBoVoyage.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201809201549555_Init"; }
+            get { return "201809210841116_Init"; }
         }
         
         string IMigrationMetadata.Source

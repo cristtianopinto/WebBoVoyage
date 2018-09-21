@@ -13,7 +13,10 @@ namespace WebBoVoyage.Models
     {
         [Column("Id")]
         public int Id { get; set; }
-        
+
+        [Column("NumeroUnique")]
+        public int NumeroUnique { get; set; }
+
         [Column("NumeroCarteBancaire")]
         public string NumeroCarteBancaire { get; set; }
         [Column("PrixParPersonne")]
@@ -42,22 +45,22 @@ namespace WebBoVoyage.Models
             }
         [Column("EtatDossierReservation")]
         public EtatDossierReservation EtatDossierReservation { get; set; }
+
         [Column("RaisonAnnulationDossier")]
         public RaisonAnnulationDossier RaisonAnnulationDossier { get; set; }
 
         [Column("IdVoyage")]
         public int IdVoyage { get; set; }
+
         [Column("IdClient")]
         public int IdClient { get; set; }
-        [Column("IdNumeroUnique")]
-        public int IdNumeroUnique { get; set; }
+      
         [ForeignKey("IdVoyage")]
         public  Voyage Voyage { get; set; }
 
         [ForeignKey("IdClient")]
         public Client Client { get; set; }
-        [ForreignKey("IdNumeroUnique")]
-        public Participant Participant { get; set; }
+        
 
         public  virtual ICollection<Assurance> Assurances { get; set; }
         public  virtual ICollection<Participant> Participants { get; set; }
