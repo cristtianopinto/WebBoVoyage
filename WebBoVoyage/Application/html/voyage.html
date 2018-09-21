@@ -41,7 +41,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/">Dossier Reservation <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="/application/html/clients.html">Clients</a>
@@ -96,7 +96,7 @@
                         boutonReserver.on('click', function () {
                             var div = $(this).closest(".Voyage");
                             var idVoyage = div.attr("data-id"); //Reservation
-                            ChoisirVoyage(idVoyage, div); //Choisir Voyage pour reserver
+                            ReserverVoyage(idVoyage, div); //Choisir Voyage pour reserver
                         });
                         var buttonDelete = $('<button class="btn btn-danger btn-sm" style = "float:right;"><i class="fas fa-trash"></i></button>');
                         buttonDelete.on('click', function () {
@@ -155,9 +155,9 @@
                 error: Erreur
             });
         }
-        function ChoisirVoyage(idVoyage, div)
+        function ReserverVoyage(idVoyage, div)
         {
-            alert('Cou Cou bon voyage');
+           
         }
         function SuprimmerVoyage(id, div) {
             $.ajax({
