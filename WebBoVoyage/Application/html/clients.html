@@ -30,6 +30,24 @@
             float: right;
             display: block;
         }
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 <body>
@@ -70,11 +88,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script>
         function getClients() {
+            var divListeClients = $('#listeClients');
+           divListeClients.append($('<div class="loader"></div>'));
             $.ajax({
                 url: '/api/Clients',
                 success: function (Clients) {
-                    var divListeClients = $('#listeClients'); 
-                    divListeClients.addClass('row');
+                    divListeClients.empty();
+                     divListeClients.addClass('row');
                     //var i = 1;
                     for (client of Clients) {
                         //var id = 'id' + i;//
@@ -129,8 +149,11 @@
                 error: Erreur
             });
         }  
-
-        getClients();
+        $(document).ready(function () {
+            getClients();;
+            //$('#Nom').focus(); // Sans jquery: document.getElementById('Nom').focus();
+        });
+        
     </script>
 </body>
 </html>
