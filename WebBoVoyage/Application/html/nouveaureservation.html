@@ -105,10 +105,10 @@
             var voyage = {
                 
                 NumeroCarteBancaire: $('#NumCarteBancaire').val(),
-                PrixParPersonne:// $('#DateRetour').val(), //valeur de voyage
+                PrixParPersonne: $('#Voyage').val()[1], 
                 EtatDossierReservation: 0,
                 RaisonAnnulationDossier: 0,
-                IdVoyage: $('#Voyage').val(), 
+                IdVoyage: $('#Voyage').val()[0], 
                 IdClient: $('Client').val()
                 
 
@@ -138,7 +138,8 @@
                     select.append($('<option></option>'));
                     for (voyage of voyages) {
                         var option = $('<option></option>');
-                        option.val(voyage.Id);
+                        var valeurVoyage = [voyage.Id, voyage.PrixParPersonne];
+                        option.val(valeurVoyage);
                         console.log(voyage.Id);
                         option.text(voyage.Destination.Pays + ' - ' + voyage.AgenceVoyage.Nom+''+voyage.PrixParPersonne);
                         select.append(option);
