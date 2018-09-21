@@ -22,7 +22,8 @@ namespace WebBoVoyage.Controllers
         {
             return db.DossierReservations
                  .Include(x => x.Client)
-                 .Include(x => x.Voyage); 
+                 .Include(x => x.Voyage)
+                 .Include(x => x.Voyage.Destination); 
         }
 
         // GET: api/DossierReservations/5

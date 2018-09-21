@@ -16,27 +16,25 @@
             padding-top: 20px;
         }
 
-            .DossierReservation input[type=checkbox] {
-                margin-right: 8px;
-            }
+        .DossierReservation input[type=checkbox] {
+            margin-right: 8px;
+        }
 
-            .DossierReservation button {
-                float: right;
-                display: none;
-            }
+        .DossierReservation button {
+            float: right;
+            display: none;
+        }
 
-            .DossierReservation:hover button {
-                float: right;
-                display: block;
-            }
+        .DossierReservation:hover button {
+            float: right;
+            display: block;
+        }        
     </style>
 </head>
         
     <body>
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-            <a class="navbar-brand" href="/">
-                <i class="fas fa-concierge-bell"></i> BoVoyage  <i class="fas fa-users"></i>
-            </a>
+            <a class="navbar-brand" href="/"><i class="fas fa-concierge-bell" style="width:30px"></i> BoVoyage</a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
@@ -70,6 +68,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
         <script>
         function getDossierReservations() {
+            var EtatDossier = ['EnAttente', 'EnCours', 'Refuse', 'Accepte'];
             $.ajax({
                 url: '/api/DossierReservations',
                 success: function (DossierReservations) {
@@ -93,32 +92,29 @@
                         });
 
                         divDossierReservation.append(buttonDelete);
-                        divDossierReservation.append($(' <span>Dossier Reservation pour : </span>'));
+                        divDossierReservation.append($(' <span>Dossier Reservation pour :</span>'));
                         divDossierReservation.append($(' <span></span>').text(dossierReservation.Client.Civilite));
                         divDossierReservation.append($(' <span> .  </span>'));
                         divDossierReservation.append($('<span ></span>').text(dossierReservation.Client.Nom));
                         divDossierReservation.append($('<br/>'));
                         divDossierReservation.append($(' <span> Destination : </span>'));
-                        //divDossierReservation.append($('<span ></span>').text(dossierReservation.Voyage.Destination.Pays));
+                        divDossierReservation.append($('<span ></span>').text(dossierReservation.Voyage.Destination.Pays));
                         divDossierReservation.append($(' <span>  - Prix : </span>'));
                         divDossierReservation.append($('<span ></span>').text('€: ' + dossierReservation.PrixParPersonne));
                         divDossierReservation.append($('<br/>'));
                         divDossierReservation.append($(' <span> Etat dossier: </span>'));
-                        divDossierReservation.append($('<span ></span>').text(dossierReservation.EtatDossierReservation));
+                        divDossierReservation.append($('<span ></span>').text(EtatDossier[dossierReservation.EtatDossierReservation]));
 
-                        divDossierReservation.append($(' <span> Raison Annulation : </span>'));
-                        divDossierReservation.append($('<span ></span>').text(dossierReservation.RaisonAnnulationDossier));
+                        //divDossierReservation.append($(' <span> - Raison Annulation : </span>'));
+                        //divDossierReservation.append($('<span ></span>').text(dossierReservation.RaisonAnnulationDossier));
                         divDossierReservation.append($('<br/>'));
                         divDossierReservation.append($(' <span> Telephone client : </span>'));
                         divDossierReservation.append($('<span ></span>').text(dossierReservation.Client.Telephone));
                         divDossierReservation.append($(' <span> - Numero Unique de participant:  </span>'));
                         divDossierReservation.append($('<span ></span>').text(dossierReservation.NumeroUnique));
 
-                        //i++;
                         divListeDossierReservations.append(divDossierReservation);
-                    }
-
-                    //document.getElementById("numTache").innerHTML = i - 1 + " tache(s)";
+                    }                    
                 },
                 error: Erreur
             });
@@ -139,6 +135,24 @@
             });
 
         }
+
+        function EnregistrerModification(divDossier) {
+            let idDossier = divDossier.data('Id');
+            let etat = divDossier.data('Etat');
+            $.ajax({
+                type: 'PUT',
+                url: '/api/DossierReservations/' + idDossier,
+                data: {
+                    Id: idDossier,
+                    EtatDossierReservation: etat
+                },
+                success: function () {                    
+                    location.reload();
+                },
+                error: Erreur
+            });
+        }
+
 
         getDossierReservations();
         </script>

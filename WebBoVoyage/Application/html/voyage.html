@@ -15,6 +15,7 @@
             border: 1px solid lightgray;
             padding-left: 20px;
             padding-top: 20px;
+            padding-bottom: 30px;
         }
 
         .Voyage input[type=checkbox] {
@@ -34,10 +35,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">
-            <i class="fas fa-concierge-bell"></i> BoVoyage <i class="fas fa-umbrella-beach"></i>
-
-        </a>
+        <a class="navbar-brand" href="/"><i class="fas fa-umbrella-beach" style="width:30px"></i> BoVoyage</a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
@@ -59,10 +57,10 @@
         </div>
     </nav>
     <div class="container">
-        <h1 style="color: blueviolet">Bienvenue - Voyages en promo</h1>
+        <h1>Bienvenue - Voyages en promo</h1>
         <div class="row" id="listeVoyages"> </div>
         <div class="row">
-            <div style="margin-top: 100px;" class="col-sm-6">
+            <div style="margin-top: 10px;" class="col-sm-6">
                 <a href="/application/Html/nouveauvoyage.html" class="btn btn-primary btn-sm">Nouveau Voyage</a>
             </div>
         </div>
@@ -80,19 +78,19 @@
                     for (voyage of Voyages) {
                         //var id = 'id' + i;//
 
-                        var divVoyage = $('<div class="Voyage"></div>');
+                        var divVoyage = $('<div class="Voyage" style="height:150px;"></div>');
                         divVoyage.addClass('col-sm-8');
                         divVoyage.attr("data-id", voyage.Id);
                         divVoyage.empty;
 
-                        var inputEtat = $('<input type="checkbox">');   //Choisir this offre voyage
+                        var inputEtat = $('<input type="checkbox" style="visibility:hidden;">');   //Choisir this offre voyage
                         inputEtat.attr('checked', voyage.Statut);
                         inputEtat.on('click', function () {
                             var div = $(this).closest(".Voyage");
                             var idVoyage = div.attr("data-id");
                             ModifierStatutVoyage(idvoyage, this);
                         });
-                        var boutonReserver = $('<button class="btn btn-primary" style = "float:right;">Reserver</button>');
+                        var boutonReserver = $('<button class="btn btn-primary btn-sm" style = "float:right;" disabled>Reserver</button>');
                         boutonReserver.on('click', function () {
                             var div = $(this).closest(".Voyage");
                             var idVoyage = div.attr("data-id"); //Reservation

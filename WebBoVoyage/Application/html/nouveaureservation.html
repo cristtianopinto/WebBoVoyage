@@ -36,10 +36,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">
-            <i class="fas fa-concierge-bell"></i> BoVoyage  <i class="fas fa-globe-americas"></i>
-
-        </a>
+        <a class="navbar-brand" href="/"><i class="fas fa-concierge-bell" style="width:30px"></i> BoVoyage</a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item ">
@@ -232,7 +229,7 @@
                 url: '/api/DossierReservations',
                 data: voyage,
                 success: function () {
-                    window.location.href = '/application/Html/reservation.html';
+                    window.location.href = '/application/Html/principal.html';
                 },
                 error: Erreur
             });

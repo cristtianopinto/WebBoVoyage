@@ -24,6 +24,7 @@
         .Agence button {
             float: right;
             display: none;
+            margin:10px;
         }
 
         .Agence:hover button {
@@ -34,9 +35,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">
-            <i class="fas fa-concierge-bell"></i> BoVoyage  <i class="far fa-address-book"></i>
-        </a>
+        <a class="navbar-brand" href="/"><i class="far fa-address-book" style="width:30px"></i> BoVoyage </a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
@@ -60,8 +59,7 @@
     </nav>
 
     <div class="container">
-        <div class="row">
-            <h1>Liste des Agences</h1>
+        <h1>Liste des Agences</h1>  
             <div class="container" style="margin-bottom:50px;" id="listeAgences">
 
             </div>
@@ -73,9 +71,9 @@
                 </div>
                 <button class="btn btn-primary" style="margin-top:50px;" onclick="return Enregistrer()">Ajouter</button> <!--on besoin d'un return-->
 
-            </form>
-        </div>
+            </form>        
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script>
         function Enregistrer() {
@@ -123,7 +121,7 @@
                     var divListeAgence = $('#listeAgences');
                     divListeAgence.empty();
                     for (var agence of agences) {
-                        var divAgence = $('<div class="Agence" style="height:50px;"></div>');
+                        var divAgence = $('<div class="Agence" style="height:80px;"></div>');
                         RemplirDivAgences(divAgence, agence);
                         divListeAgence.append(divAgence);
                     }
