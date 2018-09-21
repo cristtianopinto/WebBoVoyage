@@ -28,16 +28,21 @@ namespace WebBoVoyage.Models
                 get
                 {
                     decimal prixTotal = 0;
-                    foreach (var participant in this.Participants)
+                    if (this.Participants != null)
                     {
-                        prixTotal += (1 - (decimal)participant.Reduction) * PrixParPersonne;
-                    }
-
-                    foreach (var assurance in this.Assurances)
-                    {
-                        if (assurance.TypeAssurance == TypeAssurance.Annulation)
+                        foreach (var participant in this.Participants)
                         {
-                            prixTotal += (decimal)assurance.Montant;
+                            prixTotal += (1 - (decimal)participant.Reduction) * PrixParPersonne;
+                        }
+                    }
+                    if (this.Assurances != null)
+                    {
+                        foreach (var assurance in this.Assurances)
+                        {
+                            if (assurance.TypeAssurance == TypeAssurance.Annulation)
+                            {
+                                prixTotal += (decimal)assurance.Montant;
+                            }
                         }
                     }
                     return prixTotal;
@@ -62,8 +67,8 @@ namespace WebBoVoyage.Models
         public Client Client { get; set; }
         
 
-        public  virtual ICollection<Assurance> Assurances { get; set; }
-        public  virtual ICollection<Participant> Participants { get; set; }
+        public   ICollection<Assurance> Assurances { get; set; }
+        public   ICollection<Participant> Participants { get; set; }
     }
     public enum EtatDossierReservation { EnAttente=0, EnCours=1, Refuse=2, Accepte=3}
     public enum RaisonAnnulationDossier {SansAnnulation=0, Client = 1, PlacesInsuffisantes = 2 }

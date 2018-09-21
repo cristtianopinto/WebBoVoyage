@@ -61,21 +61,19 @@ namespace WebBoVoyage.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        NumeroUnique = c.Int(nullable: false),
                         NumeroCarteBancaire = c.String(),
                         PrixParPersonne = c.Decimal(nullable: false, precision: 18, scale: 2),
                         EtatDossierReservation = c.Int(nullable: false),
                         RaisonAnnulationDossier = c.Int(nullable: false),
                         IdVoyage = c.Int(nullable: false),
                         IdClient = c.Int(nullable: false),
-                        IdNumeroUnique = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Clients", t => t.IdClient, cascadeDelete: true)
-                .ForeignKey("dbo.Participants", t => t.IdNumeroUnique, cascadeDelete: true)
                 .ForeignKey("dbo.Voyages", t => t.IdVoyage, cascadeDelete: true)
                 .Index(t => t.IdVoyage)
-                .Index(t => t.IdClient)
-                .Index(t => t.IdNumeroUnique);
+                .Index(t => t.IdClient);
             
             CreateTable(
                 "dbo.Participants",
@@ -90,13 +88,10 @@ namespace WebBoVoyage.Migrations
                         Adresse = c.String(),
                         Telephone = c.String(),
                         DateNaissance = c.DateTime(nullable: false),
-                        DossierReservation_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.DossierReservation", t => t.IdDossierReservation, cascadeDelete: true)
-                .ForeignKey("dbo.DossierReservation", t => t.DossierReservation_Id)
-                .Index(t => t.IdDossierReservation)
-                .Index(t => t.DossierReservation_Id);
+                .Index(t => t.IdDossierReservation);
             
             CreateTable(
                 "dbo.Voyages",
@@ -123,16 +118,12 @@ namespace WebBoVoyage.Migrations
             DropForeignKey("dbo.DossierReservation", "IdVoyage", "dbo.Voyages");
             DropForeignKey("dbo.Voyages", "IdDestination", "dbo.Destination");
             DropForeignKey("dbo.Voyages", "IdAgenceVoyage", "dbo.AgenceVoyage");
-            DropForeignKey("dbo.Participants", "DossierReservation_Id", "dbo.DossierReservation");
-            DropForeignKey("dbo.DossierReservation", "IdNumeroUnique", "dbo.Participants");
             DropForeignKey("dbo.Participants", "IdDossierReservation", "dbo.DossierReservation");
             DropForeignKey("dbo.DossierReservation", "IdClient", "dbo.Clients");
             DropForeignKey("dbo.Assurance", "DossierReservation_Id", "dbo.DossierReservation");
             DropIndex("dbo.Voyages", new[] { "IdAgenceVoyage" });
             DropIndex("dbo.Voyages", new[] { "IdDestination" });
-            DropIndex("dbo.Participants", new[] { "DossierReservation_Id" });
             DropIndex("dbo.Participants", new[] { "IdDossierReservation" });
-            DropIndex("dbo.DossierReservation", new[] { "IdNumeroUnique" });
             DropIndex("dbo.DossierReservation", new[] { "IdClient" });
             DropIndex("dbo.DossierReservation", new[] { "IdVoyage" });
             DropIndex("dbo.Assurance", new[] { "DossierReservation_Id" });
