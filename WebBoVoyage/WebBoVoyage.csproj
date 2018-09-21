@@ -102,6 +102,7 @@
     <Content Include="Application\html\nouveaudestination.html" />
     <Content Include="Application\html\nouveauvoyage.html" />
     <Content Include="Application\html\principal.html" />
+    <Content Include="Application\html\reservation.html" />
     <Content Include="Application\html\voyage.html" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />

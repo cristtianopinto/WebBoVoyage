@@ -29,7 +29,7 @@ namespace WebBoVoyage.Models
         public int IdDossierReservation { get; set; }
 
         [ForeignKey("IdDossierReservation")]
-        public virtual DossierReservation DossierReservation { get; set; }
+        public  DossierReservation DossierReservation { get; set; }
 
     }
 }
