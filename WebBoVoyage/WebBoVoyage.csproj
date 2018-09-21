@@ -95,14 +95,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Application\html\agence.html" />
-    <Content Include="Application\html\clients.html" />
-    <Content Include="Application\html\destination.html" />
-    <Content Include="Application\html\nouveauclient.html" />
-    <Content Include="Application\html\nouveaudestination.html" />
-    <Content Include="Application\html\nouveauvoyage.html" />
+    <Content Include="Application\html\Agence.html" />
+    <Content Include="Application\html\Clients.html" />
+    <Content Include="Application\html\Destination.html" />
+    <Content Include="Application\html\NouveauClient.html" />
+    <Content Include="Application\html\NouveauDestination.html" />
+    <Content Include="Application\html\NouveauVoyage.html" />
     <Content Include="Application\html\principal.html" />
-    <Content Include="Application\html\reservation.html" />
+    <Content Include="Application\html\DossierReservation.html" />
     <Content Include="Application\html\voyage.html" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
@@ -122,9 +122,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201809210841116_Init.cs" />
-    <Compile Include="Migrations\201809210841116_Init.Designer.cs">
-      <DependentUpon>201809210841116_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201809210916358_Init.cs" />
+    <Compile Include="Migrations\201809210916358_Init.Designer.cs">
+      <DependentUpon>201809210916358_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AgenceVoyage.cs" />
@@ -152,8 +152,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201809210841116_Init.resx">
-      <DependentUpon>201809210841116_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809210916358_Init.resx">
+      <DependentUpon>201809210916358_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
