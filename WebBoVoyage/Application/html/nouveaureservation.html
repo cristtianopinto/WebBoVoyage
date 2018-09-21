@@ -66,6 +66,10 @@
         <form novalidate>
             <!--novalidate bootstrap-->
             <div class="form-group">
+                <label for="NumUnique">Numerro Unique:</label>
+                <input class="form-control" type="text" id="NumUnique" />
+            </div>
+            <div class="form-group">
                 <label for="Voyage">Voyage*</label>
                 <select class="form-control" id="Voyage"></select>
                 <label for="Voyage" id="voyagevaleur">Voyage*</label>
@@ -78,9 +82,9 @@
 
             <div class="form-group">
                 <label for="NumCarteBancaire">Carte Bancaire</label>
-                <input class="form-control" type="date" id="NumCarteBancaire" />
+                <input class="form-control" type="text" id="NumCarteBancaire" />
             </div>
-            <button id="buttonEnregistre"class="btn btn-primary" style="margin-top:50px;" onclick="return EnregistrerVoyage()" >Enregistrer</button> <!--on besoin d'un return-->
+            <button id="buttonEnregistre" class="btn btn-primary" style="margin-top:50px;" onclick="return EnregistrerReservation()">Enregistrer</button> <!--on besoin d'un return-->
         </form>
         
     </div>
@@ -101,19 +105,18 @@
             /*if (!Valider()) {
                 return false;
             }*/
-
+            
             var voyage = {
-                
+                NumeroUnique: $('#NumUnique').val(),
                 NumeroCarteBancaire: $('#NumCarteBancaire').val(),
-                PrixParPersonne: $('#Voyage').val()[1], 
+                PrixParPersonne: $('#Voyage').find(':selected').attr('data-prix'),
                 EtatDossierReservation: 0,
                 RaisonAnnulationDossier: 0,
-                IdVoyage: $('#Voyage').val()[0], 
-                IdClient: $('Client').val()
-                
-
+                IdVoyage: $('#Voyage').val(),
+                IdClient: $('#Client').val()    
             };
-
+            console.log(voyage);           
+            /*
             $.ajax({
                 type: 'POST',
                 url: '/api/DossierReservations',
@@ -122,7 +125,7 @@
                     window.location.href = '/application/Html/reservation.html';
                 },
                 error: Erreur
-            });
+            });*/
             return false;
         }
         function Erreur() {
@@ -137,10 +140,9 @@
                     select.empty();
                     select.append($('<option></option>'));
                     for (voyage of voyages) {
-                        var option = $('<option></option>');
-                        var valeurVoyage = [voyage.Id, voyage.PrixParPersonne];
-                        option.val(valeurVoyage);
-                        console.log(voyage.Id);
+                        var option = $('<option></option>');                        
+                        option.val(voyage.Id);
+                        option.attr("data-prix",voyage.PrixParPersonne);                        
                         option.text(voyage.Destination.Pays + ' - ' + voyage.AgenceVoyage.Nom+''+voyage.PrixParPersonne);
                         select.append(option);
                     }
@@ -159,7 +161,7 @@
                     for (client of clients) {
                         var option = $('<option></option>');
                         option.val(client.Id);
-                        console.log(client.Id);
+                        //console.log(client.Id);
                         option.text(client.Nom+' - '+client.Prenom);
                         select.append(option);
                     }

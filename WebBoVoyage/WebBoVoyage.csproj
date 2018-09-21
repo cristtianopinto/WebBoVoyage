@@ -95,15 +95,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Application\html\agence.html" />
-    <Content Include="Application\html\clients.html" />
-    <Content Include="Application\html\destination.html" />
-    <Content Include="Application\html\nouveauclient.html" />
-    <Content Include="Application\html\nouveaudestination.html" />
-    <Content Include="Application\html\nouveaureservation.html" />
-    <Content Include="Application\html\nouveauvoyage.html" />
+    <Content Include="Application\html\Agence.html" />
+    <Content Include="Application\html\Clients.html" />
+    <Content Include="Application\html\Destination.html" />
+    <Content Include="Application\html\NouveauClient.html" />
+    <Content Include="Application\html\NouveauDestination.html" />
+    <Content Include="Application\html\NouveauReservation.html" />
+    <Content Include="Application\html\NouveauVoyage.html" />
     <Content Include="Application\html\principal.html" />
-    <Content Include="Application\html\voyage.html" />
+    <Content Include="Application\html\Voyage.html" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="Web.config" />
@@ -116,13 +116,15 @@
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\DestinationsController.cs" />
     <Compile Include="Controllers\DossierReservationsController.cs" />
-    <Compile Include="Controllers\ParticipantsController.cs" />
     <Compile Include="Controllers\VoyagesController.cs" />
     <Compile Include="Data\BoVoyageDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201809201549555_Init.cs" />
+    <Compile Include="Migrations\201809210856500_Init.cs" />
+    <Compile Include="Migrations\201809210856500_Init.Designer.cs">
+      <DependentUpon>201809210856500_Init.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AgenceVoyage.cs" />
     <Compile Include="Models\Assurance.cs" />
@@ -149,8 +151,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201809201549555_Init.resx">
-      <DependentUpon>201809201549555_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809210856500_Init.resx">
+      <DependentUpon>201809210856500_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
