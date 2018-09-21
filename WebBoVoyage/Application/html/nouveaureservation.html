@@ -11,7 +11,7 @@
     <!--<link rel="stylesheet" href="/Application/css/application.css" />-->
 
     <style>
-        /*      
+        /*       
         .Client {
             border: 1px solid lightgray;
             padding-left: 20px;
@@ -30,7 +30,7 @@
         .Client:hover button {
             float: right;
             display: block;
-        } */
+        }*/
     </style>
 </head>
 <body>
@@ -60,63 +60,66 @@
         </div>
     </nav>
     <div class="container">
-        <h1>Nouveau - Voyage</h1>
+        <h1>Nouveau - Reservation</h1>
         <div class="row" id="listeVoyages"> </div>
 
         <form novalidate>
             <!--novalidate bootstrap-->
             <div class="form-group">
-                <label for="DateAller">Date de Aller</label>
-                <input class="form-control" type="date" id="DateAller" />
+                <label for="Voyage">Voyage*</label>
+                <select class="form-control" id="Voyage"></select>
+                <label for="Voyage" id="voyagevaleur">Voyage*</label>
             </div>
+
             <div class="form-group">
-                <label for="DateRetour">Date de Retour</label>
-                <input class="form-control" type="date" id="DateRetour" />
+                <label for="Client">Client*</label>
+                <select class="form-control" id="Client"></select>
             </div>
+
             <div class="form-group">
-                <label for="Place">Place disponible:</label>
-                <input type="text" class="form-control" id="Place" />
+                <label for="NumCarteBancaire">Carte Bancaire</label>
+                <input class="form-control" type="date" id="NumCarteBancaire" />
             </div>
-            <div class="form-group">
-                <label for="Prix">Prix pour personne:</label>
-                <input type="text" class="form-control" id="Prix" />
-            </div>
-            <div class="form-group">
-                <label for="Agence">Agence*</label>
-                <select class="form-control" id="Agence"></select>
-            </div>
-            <div class="form-group">
-                <label for="Destination">Destination*</label>
-                <select class="form-control" id="Destination"></select>
-            </div>
-            <button class="btn btn-primary" style="margin-top:50px;" onclick="return EnregistrerVoyage()">Enregistrer</button> <!--on besoin d'un return-->
+            <button id="buttonEnregistre"class="btn btn-primary" style="margin-top:50px;" onclick="return EnregistrerVoyage()" >Enregistrer</button> <!--on besoin d'un return-->
         </form>
-
-
+        
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script>
-
-        function EnregistrerVoyage() {
+        var ErrorRecuperation = false;
+        //recu
+        function ValiderEnregistrer() {
+            var bt = $("#buttonEnregistre");
+            LoadVoyages();
+            LoadClients();
+            if (!ErrorRecuperation) {
+                bt.disabled = false;
+            }
+            
+        }
+        function EnregistrerReservation() {
             /*if (!Valider()) {
                 return false;
             }*/
 
             var voyage = {
-                DateAller: $('#DateAller').val(),
-                DateRetour: $('#DateRetour').val(),
-                PlacesDisponibles: $('#Place').val(),
-                PrixParPersonne: $('#Prix').val(),
-                IdAgenceVoyage: $('#Agence').val(),
-                IdDestination: $('#Destination').val()                
+                
+                NumeroCarteBancaire: $('#NumCarteBancaire').val(),
+                PrixParPersonne: $('#Voyage').val()[1], 
+                EtatDossierReservation: 0,
+                RaisonAnnulationDossier: 0,
+                IdVoyage: $('#Voyage').val()[0], 
+                IdClient: $('Client').val()
+                
+
             };
 
             $.ajax({
                 type: 'POST',
-                url: '/api/Voyages',
+                url: '/api/DossierReservations',
                 data: voyage,
                 success: function () {
-                    window.location.href = '/application/Html/voyage.html';
+                    window.location.href = '/application/Html/reservation.html';
                 },
                 error: Erreur
             });
@@ -126,43 +129,51 @@
             alert("Erreur de Page!");
         }
 
-        function LoadAgences() {
+        function LoadVoyages() {
             $.ajax({
-                url: '/api/AgenceVoyages',
-                success: function (agences) {
-                    var select = $("#Agence");
+                url: '/api/Voyages',
+                success: function (voyages) {
+                    var select = $("#Voyage");
                     select.empty();
-                    select.append($('<option></option>')); 
-                    for (agence of agences) {
+                    select.append($('<option></option>'));
+                    for (voyage of voyages) {
                         var option = $('<option></option>');
-                        option.val(agence.Id);
-                        console.log(agence.Id);
-                        option.text(agence.Nom);
+                        var valeurVoyage = [voyage.Id, voyage.PrixParPersonne];
+                        option.val(valeurVoyage);
+                        console.log(voyage.Id);
+                        option.text(voyage.Destination.Pays + ' - ' + voyage.AgenceVoyage.Nom+''+voyage.PrixParPersonne);
                         select.append(option);
                     }
-                }
+                },
+                error: Erreur
             });
         }
-        
-        function LoadDestination() {
+
+        function LoadClients() {
             $.ajax({
-                url: '/api/Destinations',
-                success: function (destinations) {
-                    var select = $("#Destination");
+                url: '/api/Clients',
+                success: function (clients) {
+                    var select = $("#Client");
                     select.empty();
                     select.append($('<option></option>')); //element vide
-                    for (destination of destinations) {
+                    for (client of clients) {
                         var option = $('<option></option>');
-                        option.val(destination.Id);
-                        console.log(destination.Id);
-                        option.text(destination.Pays);
+                        option.val(client.Id);
+                        console.log(client.Id);
+                        option.text(client.Nom+' - '+client.Prenom);
                         select.append(option);
                     }
-                }
+                },
+                error: Erreur
             });
         }
-        LoadAgences();
-        LoadDestination();
+        function ErreurRecuperation() {
+            alert("Erreur de Page!");
+            ErrorRecuperation = true;
+        }
+
+        ValiderEnregistrer();
+        
     </script>
 </body>
 </html>
