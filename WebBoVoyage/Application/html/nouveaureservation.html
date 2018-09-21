@@ -31,6 +31,7 @@
             float: right;
             display: block;
         }*/
+        
     </style>
 </head>
 <body>
@@ -61,7 +62,6 @@
     </nav>
     <div class="container">
         <h1>Nouveau - Reservation</h1>
-        <div class="row" id="listeVoyages"> </div>
 
         <form novalidate>
             <!--novalidate bootstrap-->
@@ -84,18 +84,128 @@
                 <label for="NumCarteBancaire">Carte Bancaire</label>
                 <input class="form-control" type="text" id="NumCarteBancaire" />
             </div>
+
+            <div id="listeParticipants" style="border:1px solid gray; padding:5px;">
+
+            </div>
+
+            <div id="ParticipantFormulaire" style="border:1px solid gray; padding:5px;">
+                <form novalidate>
+                    <!--novalidate bootstrap-->
+                    <div class="form-group">
+                        <label for="Civilite">Civilite</label>
+                        <input type="text" class="form-control" id="Civilite" required />
+                        <div class='invalid-feedback'>
+                            Champ requis
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Nom">Nom*</label>
+                        <input type="text" class="form-control" id="Nom" required />
+                        <div class='invalid-feedback'>
+                            Champ requis
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Prenom">Prenom</label>
+                        <input type="text" class="form-control" id="Prenom" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="Adresse">Adresse</label>
+                        <input type="text" class="form-control" id="Adresse" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="Telephone">Telephone</label>
+                        <input type="text" class="form-control" id="Telephone" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="Date">Date de Naissance</label>
+                        <input class="form-control" type="date" id="Date" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Email">Email</label>
+                        <input type="text" class="form-control" id="Email" required />
+                    </div>
+
+                    <button class="btn btn-primary" style="margin-top:50px;" onclick="return EnregistrerParticipant()">Enregistrer</button> <!--on besoin d'un return-->
+                </form>
+            </div>
+
             <button id="buttonEnregistre" class="btn btn-primary" style="margin-top:50px;" onclick="return EnregistrerReservation()">Enregistrer</button> <!--on besoin d'un return-->
         </form>
         
+        
+        <button class="btn btn-primary" style="margin-top:50px;" onclick="return CreationParticipant('ParticipantFormulaire')">Ajout Participant</button> <!--on besoin d'un return-->
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script>
         var ErrorRecuperation = false;
-        //recu
+        var participantFormulaire = document.getElementById("ParticipantFormulaire");
+        function EnregistrerParticipant() {
+
+        }
+        function GetParticipant(id) {
+            var divListeParticipants = $('#listeParticipants');
+            divListeParticipants.append($('<div class="loader"></div>'));
+            $.ajax({
+                url: '/api/Participants/search/' + id,
+                success: function (Participants) {
+                    divListeParticipants.empty();
+                    divListeParticipants.addClass('row');
+                    //var i = 1;
+                    for (participant of Participants) {
+                        //var id = 'id' + i;//
+
+                        var divParticipant = $('<div class="Participant"></div>');
+                        divParticipant.addClass('col-sm-8');
+                        divParticipant.attr("data-id", participant.Id);
+                        divParticipant.empty;
+
+                        var buttonDelete = $('<button class="btn btn-danger btn-sm" style = "float:right;"><i class="fas fa-trash"></i></button>');
+                        buttonDelete.on('click', function () {
+                            var div = $(this).closest(".Participant");
+                            var idParticipant = div.attr("data-id"); // suppression
+                            //SuprimmerClient(idParticipant, div); //TODO
+                        });
+
+                        divParticipant.append(buttonDelete);
+
+                        divParticipant.append($('<span ></span>').text(client.Civilite));
+                        divParticipant.append($(' <span> </span>'));
+                        divParticipant.append($('<span ></span>').text(client.Nom));
+                        divParticipant.append($('<br/>'));
+                        divParticipant.append($('<span ></span>').text(client.Prenom));
+                        /*
+                        divClient.append($(' <span> - </span>'));
+                        divClient.append($('<span ></span>').text(client.Adresse));
+                        divClient.append($(' <span> - </span>'));
+                        divClient.append($('<span ></span>').text(client.Telephone));
+                        divClient.append($(' <span> -  </span>'));
+                        divClient.append($('<span ></span>').text(client.DateNaissance));
+                        */
+                        //i++;
+                        divListeParticipants.append(divParticipant);
+                    }
+
+                    //document.getElementById("numTache").innerHTML = i - 1 + " tache(s)";
+                },
+                error: Erreur
+            });
+        }
+        function CreationParticipant() {                    
+            participantFormulaire.style.visibility = 'visible';
+            participantFormulaire.style.height = "auto";
+            GetParticipant();
+        }
+
         function ValiderEnregistrer() {
             var bt = $("#buttonEnregistre");
             LoadVoyages();
             LoadClients();
+            participantFormulaire.style.visibility = 'hidden';
+            participantFormulaire.style.height = "0";
+            //var divParticipant = $("#Participant");
+            //divParticipant.style.visibility = "hidden";
             if (!ErrorRecuperation) {
                 bt.disabled = false;
             }

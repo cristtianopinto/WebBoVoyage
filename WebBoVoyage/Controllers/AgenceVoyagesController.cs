@@ -23,6 +23,19 @@ namespace WebBoVoyage.Controllers
             return db.AgenceVoyages;
         }
 
+        /// <summary>
+        /// rechercher agence par nom
+        /// </summary>
+        /// <param name="nom"></param>
+        /// <returns></returns>
+        // GET: api/AgenceVoyages/search
+        [ResponseType(typeof(AgenceVoyage))]
+        [Route("api/AgencesVoyages/search/{nom?}")]
+        public IQueryable<AgenceVoyage> GetAgenceVoyagesByNom(string nom)
+        {
+            return db.AgenceVoyages.Where(x => x.Nom == nom);
+        }
+
         // GET: api/AgenceVoyages/5
         [ResponseType(typeof(AgenceVoyage))]
         public IHttpActionResult GetAgenceVoyage(int id)
@@ -35,6 +48,8 @@ namespace WebBoVoyage.Controllers
 
             return Ok(agenceVoyage);
         }
+
+        
 
         // PUT: api/AgenceVoyages/5
         [ResponseType(typeof(void))]
