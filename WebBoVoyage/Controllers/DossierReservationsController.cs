@@ -20,7 +20,9 @@ namespace WebBoVoyage.Controllers
         // GET: api/DossierReservations
         public IQueryable<DossierReservation> GetDossierReservations()
         {
-            return db.DossierReservations;
+            return db.DossierReservations
+                 .Include(x => x.Client)
+                 .Include(x => x.Voyage); 
         }
 
         // GET: api/DossierReservations/5

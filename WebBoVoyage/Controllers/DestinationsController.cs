@@ -21,6 +21,7 @@ namespace WebBoVoyage.Controllers
         public IQueryable<Destination> GetDestinations()
         {
             return db.Destinations;
+            
         }
 
         // GET: api/Destinations/5

@@ -9,33 +9,138 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
           crossorigin="anonymous">
     <!--<link rel="stylesheet" href="/Application/css/application.css" />-->
-</head>
-<body>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">
-            <i class="fas fa-concierge-bell"></i> BoVoyage
-        </a>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/application/html/clients.html">Clients</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/application/html/agence.html">Agences</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/application/html/destination.html">Destination</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/application/html/voyage.html">Voyages</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <style>
+        .DossierReservation {
+            border: 1px solid lightgray;
+            padding-left: 20px;
+            padding-top: 20px;
+        }
 
-    <h1>Bienvenue - Page Principal</h1>
-</body>
+            .DossierReservation input[type=checkbox] {
+                margin-right: 8px;
+            }
+
+            .DossierReservation button {
+                float: right;
+                display: none;
+            }
+
+            .DossierReservation:hover button {
+                float: right;
+                display: block;
+            }
+    </style>
+</head>
+        
+    <body>
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-concierge-bell"></i> BoVoyage  <i class="fas fa-users"></i>
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Dossier Reservation <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="/application/html/clients.html">Clients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/application/html/agence.html">Agences</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/application/html/destination.html">Destination</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/application/html/voyage.html">Voyages</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
+            <h1>Bienvenue - DossierReservation</h1>
+            <div class="row" id="listeDossierReservations"> </div>
+            <div class="row">
+                <div style="margin-top: 100px;" class="col-sm-6">
+                    <a href="/application/Html/nouveauReservation.html" class="btn btn-primary btn-sm">Nouveau DossierReservation</a>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+        <script>
+        function getDossierReservations() {
+            $.ajax({
+                url: '/api/DossierReservations',
+                success: function (DossierReservations) {
+
+                    var divListeDossierReservations = $('#listeDossierReservations');
+                    divListeDossierReservations.addClass('row');
+                    //var i = 1;
+                    for (dossierReservation of DossierReservations) {
+                        //var id = 'id' + i;//
+
+                        var divDossierReservation = $('<div class="DossierReservation"></div>');
+                        divDossierReservation.addClass('col-sm-8');
+                        divDossierReservation.attr("data-id", dossierReservation.Id);
+                        divDossierReservation.empty;
+
+                        var buttonDelete = $('<button class="btn btn-danger btn-sm" style = "float:right;"><i class="fas fa-trash"></i></button>');
+                        buttonDelete.on('click', function () {
+                            var div = $(this).closest(".DossierReservation");
+                            var idDossierReservation = div.attr("data-id"); // suppression
+                            SuprimmerDossierReservation(idDossierReservation, div); //TODO
+                        });
+
+                        divDossierReservation.append(buttonDelete);
+                        divDossierReservation.append($(' <span>Dossier Reservation pour : </span>'));
+                        divDossierReservation.append($(' <span></span>').text(dossierReservation.Client.Civilite));
+                        divDossierReservation.append($(' <span> .  </span>'));
+                        divDossierReservation.append($('<span ></span>').text(dossierReservation.Client.Nom));
+                        divDossierReservation.append($('<br/>'));
+                        divDossierReservation.append($(' <span> Destination : </span>'));
+                        //divDossierReservation.append($('<span ></span>').text(dossierReservation.Voyage.Destination.Pays));
+                        divDossierReservation.append($(' <span>  - Prix : </span>'));
+                        divDossierReservation.append($('<span ></span>').text('€: ' + dossierReservation.PrixParPersonne));
+                        divDossierReservation.append($('<br/>'));
+                        divDossierReservation.append($(' <span> Etat dossier: </span>'));
+                        divDossierReservation.append($('<span ></span>').text(dossierReservation.EtatDossierReservation));
+
+                        divDossierReservation.append($(' <span> Raison Annulation : </span>'));
+                        divDossierReservation.append($('<span ></span>').text(dossierReservation.RaisonAnnulationDossier));
+                        divDossierReservation.append($('<br/>'));
+                        divDossierReservation.append($(' <span> Telephone client : </span>'));
+                        divDossierReservation.append($('<span ></span>').text(dossierReservation.Client.Telephone));
+                        divDossierReservation.append($(' <span> - Numero Unique de participant:  </span>'));
+                        divDossierReservation.append($('<span ></span>').text(dossierReservation.NumeroUnique));
+
+                        //i++;
+                        divListeDossierReservations.append(divDossierReservation);
+                    }
+
+                    //document.getElementById("numTache").innerHTML = i - 1 + " tache(s)";
+                },
+                error: Erreur
+            });
+        }
+        function Erreur() {
+            alert("Erreur de Page!");
+        }
+
+        function SuprimmerDossierReservation(id, div) {
+            $.ajax({
+                type: 'DELETE',
+                url: '/api/DossierReservations/' + id,
+                success: function () {
+                    $(div).remove();
+                    location.reload();
+                },
+                error: Erreur
+            });
+
+        }
+
+        getDossierReservations();
+        </script>
+    </body>
 </html>
