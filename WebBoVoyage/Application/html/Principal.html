@@ -80,16 +80,19 @@
                         //var id = 'id' + i;//
 
                         var divDossierReservation = $('<div class="DossierReservation"></div>');
-                        divDossierReservation.addClass('col-sm-8');
-                        divDossierReservation.attr("data-id", dossierReservation.Id);
+                        divDossierReservation.addClass('col-sm-8');                        
                         divDossierReservation.empty;
-
+                        divDossierReservation.attr("data-id", dossierReservation.Id);
+                        divDossierReservation.attr("data-idClient", dossierReservation.IdClient);
+                        divDossierReservation.attr("data-idVoyage", dossierReservation.IdVoyage);
                         var buttonDelete = $('<button class="btn btn-danger btn-sm" style = "float:right;"><i class="fas fa-trash"></i></button>');
                         buttonDelete.on('click', function () {
                             var div = $(this).closest(".DossierReservation");
                             var idDossierReservation = div.attr("data-id"); // suppression
                             SuprimmerDossierReservation(idDossierReservation, div); //TODO
                         });
+
+                        
 
                         divDossierReservation.append(buttonDelete);
                         divDossierReservation.append($(' <span>Dossier Reservation pour :</span>'));
@@ -113,6 +116,13 @@
                         divDossierReservation.append($(' <span> - Numero Unique de participant:  </span>'));
                         divDossierReservation.append($('<span ></span>').text(dossierReservation.NumeroUnique));
 
+                        var buttonModifier = $('<button class="btn btn-primary btn-sm"><i class="fas fa-pen"></i></button>');
+                        buttonModifier.on('click', function () {
+                            var div = $(this).closest(".DossierReservation");
+                            div.attr("data-Etat",1); 
+                            EnregistrerModification(div); 
+                        });
+                        divDossierReservation.append(buttonModifier);
                         divListeDossierReservations.append(divDossierReservation);
                     }                    
                 },
@@ -137,14 +147,18 @@
         }
 
         function EnregistrerModification(divDossier) {
-            let idDossier = divDossier.data('Id');
-            let etat = divDossier.data('Etat');
+            let idDossier = divDossier.attr('data-id');
+            let etat = divDossier.attr('data-Etat');
+            let idClient = divDossier.attr('data-idClient');
+            let idVoyage = divDossier.attr('data-idVoyage');
             $.ajax({
                 type: 'PUT',
                 url: '/api/DossierReservations/' + idDossier,
                 data: {
                     Id: idDossier,
-                    EtatDossierReservation: etat
+                    EtatDossierReservation: etat,
+                    IdClient: idClient,
+                    IdVoyage: idVoyage
                 },
                 success: function () {                    
                     location.reload();
